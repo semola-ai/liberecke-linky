@@ -10,9 +10,9 @@ $dbDb       = 'db_name';
 
 /**
  * Veřejná cesta k aplikaci (bez koncového lomítka).
- * Prázdné = kořen domény. Pro https://tomaskrupicka.cz/blog/liberecke-linky/ např.:
+ * Prázdné = kořen domény. Pro https://tomaskrupicka.cz/liberecke-linky/ např.:
  */
-$appBasePath = '/blog/liberecke-linky';
+$appBasePath = '/liberecke-linky';
 
 // Výchozí jazyk: cz | en
 $l = 'cz';

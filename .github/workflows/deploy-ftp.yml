@@ -2,7 +2,7 @@
 # Repozitář: Settings → Secrets and variables → Actions
 #
 # Secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, FTP_SERVER_DIR
-# FTP_SERVER_DIR = cíl včetně koncového / (např. www/.../blog/liberecke-linky/)
+# FTP_SERVER_DIR = cíl včetně koncového / (např. www/.../liberecke-linky/)
 
 name: Deploy FTP
 
