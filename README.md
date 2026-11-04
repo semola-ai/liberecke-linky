@@ -2,7 +2,7 @@
 
 Přehled **autobusových linek v Liberci a okolí**: dlaždice s linkami, záložky s přehledem jízdního řádu, historií, pohledem řidiče, místopisem a fotogalerií. Data jsou v **MySQL**; rozhraní je vícejazyčné (čeština / angličtina).
 
-**Živá verze:** [tomaskrupicka.cz/blog/liberecke-linky/](https://tomaskrupicka.cz/blog/liberecke-linky/)
+**Živá verze:** [tomaskrupicka.cz/liberecke-linky/](https://tomaskrupicka.cz/liberecke-linky/)
 
 ## Funkce
 
@@ -28,7 +28,7 @@ V repozitáři je šablona **`config.example.php`**; vlastní **`config.php`** j
 ### Lokální běh
 
 1. Zkopíruj `config.example.php` → `config.php`, doplň přístup k databázi (můžeš použít **lokální** MariaDB/MySQL se zkopírovaným dumpnutým schématem, nebo **vzdálený** hosting, pokud z tvé sítě povoluje připojení).  
-2. Nastav `$appBasePath`: u vestavěného PHP serveru v kořeni projektu obvykle **`''`** (prázdný řetězec); u nasazení v podsložce na webu cesta typu `/blog/liberecke-linky`.  
+2. Nastav `$appBasePath`: u vestavěného PHP serveru v kořeni projektu obvykle **`''`** (prázdný řetězec); u nasazení v podsložce na webu cesta typu `/liberecke-linky`.  
 3. Volitelně `$googleAnalyticsMeasurementId` – nech prázdné, pokud GA nechceš.  
 4. V kořeni projektu spusť: `php -S localhost:8080`  
 5. Otevři v prohlížeči **http://localhost:8080/** — měla by se načíst úvodní stránka s dlaždicemi a záložkami (pokud DB odpovídá produkci).

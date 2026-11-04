@@ -6,7 +6,7 @@ Orientační poznámky pro práci v tomto repu. Detailní uživatelská dokument
 Web **„Liberecké linky"** — přehled MHD linek v Liberci a Jablonci n. N.
 - **Hlavní web** (`index.php`): PHP (mysqli, prepared statements), jQuery, server-rendered taby (přehled / historie / pohled řidiče / místopis / fotogalerie). Obsah z **MySQL** (tabulky `texty`, `typy_linek`). Dvojjazyčně **cz/en**.
 - **Mapa sítě** (`mapa.php`): nově přidaná **statická** Leaflet mapa nad **GTFS** daty DPMLJ — **bez databáze**, jen předgenerované JSON.
-- Živě: `https://tomaskrupicka.cz/blog/liberecke-linky/`, mapa na `…/mapa`.
+- Živě: `https://tomaskrupicka.cz/liberecke-linky/`, mapa na `…/mapa`.
 
 ## Mapa — kde co je
 - `mapa.php` — stránka (přebírá hlavičku/patičku a `css/css.css`, Leaflet z CDN, i18n přes `$lang`). Čistá URL `/mapa` přes rewrite v `.htaccess`.
