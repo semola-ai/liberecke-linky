@@ -70,6 +70,7 @@ $jsLang = [
     'grpTrvale'   => $lang['linky_trvale_mimo']    ?? 'Trvale mimo provoz',
     'departures'  => $lang['mapa_odjezdy']         ?? 'Odjezdy',
     'noDepartures' => $lang['mapa_odjezdy_zadne']  ?? 'Odsud teď nic nejede.',
+    'noTimetable' => $lang['mapa_jr_nedostupny']   ?? 'Jízdní řád pro dnešek není k dispozici.',
     'tripSchedule' => $lang['mapa_jr_spoje']       ?? 'Jízdní řád spoje',
 ];
 

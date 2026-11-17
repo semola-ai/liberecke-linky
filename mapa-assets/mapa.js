@@ -162,6 +162,7 @@
       if (vehOn) vehLayer.addTo(map);
       addMapToggles();
       refreshVehicles();
+      updateTtBanner();
       vehTimer = window.setInterval(tick, 20000);   // pravidelná aktualizace
       // pokud je už otevřený detail zastávky (např. deep-link), doplň odjezdy
       var wrap = document.getElementById("ms-dep-wrap");
@@ -173,6 +174,7 @@
   // jeden „tik": přepočet vozidel + případně odjezdů v otevřeném detailu
   function tick() {
     refreshVehicles();
+    updateTtBanner();                           // o půlnoci se může změnit pokrytí JŘ
     var wrap = document.getElementById("ms-dep-wrap");
     if (wrap && focusedStopId != null) {
       var s = stopById[focusedStopId];
@@ -210,6 +212,32 @@
     dt.setDate(dt.getDate() + 1);
     var p = function (n) { return (n < 10 ? "0" : "") + n; };
     return { ymd: "" + dt.getFullYear() + p(dt.getMonth() + 1) + p(dt.getDate()), wd: (wd + 1) % 7 };
+  }
+
+  // Pokrývá jízdní řád dnešek? (aspoň jedna služba dnes nebo – kvůli spojům po
+  // půlnoci – včera). Mimo rozsah platnosti feedu by mapa jinak byla tiše prázdná.
+  function ttCoversNow() {
+    if (!TT) return false;
+    var now = pragueNow(), pv = prevDay(now.ymd, now.wd);
+    var a = activeServices(now.ymd, now.wd), b = activeServices(pv.ymd, pv.wd), k;
+    for (k in a) return true;
+    for (k in b) return true;
+    return false;
+  }
+
+  var elTtBanner = null;
+  function updateTtBanner() {
+    var show = TT && !ttCoversNow();
+    if (show && !elTtBanner) {
+      elTtBanner = document.createElement("div");
+      elTtBanner.className = "ms-tt-banner";
+      elTtBanner.setAttribute("role", "status");
+      elTtBanner.textContent = T.noTimetable || "Jízdní řád pro dnešek není k dispozici.";
+      elMap.appendChild(elTtBanner);
+    } else if (!show && elTtBanner) {
+      elTtBanner.parentNode.removeChild(elTtBanner);
+      elTtBanner = null;
+    }
   }
 
   // service_id aktivní v daný den (bitmaska po–ne + rozsah platnosti)
@@ -407,7 +435,9 @@
     var all = departuresFor(idx, now);             // až 24 h dopředu, seřazené
     var head = "<h3>" + (T.departures || "Odjezdy") + "</h3>";
     if (!all.length)
-      return head + '<p class="ms-dep-empty">' + (T.noDepartures || "Odsud teď nic nejede.") + "</p>";
+      return head + '<p class="ms-dep-empty">' + (ttCoversNow()
+        ? (T.noDepartures || "Odsud teď nic nejede.")
+        : (T.noTimetable || "Jízdní řád pro dnešek není k dispozici.")) + "</p>";
     // počet do hodiny určí, kolik ukázat: min 5 (z 24 h), max 10; přes 10/h → až 20
     var hourCount = 0;
     while (hourCount < all.length && all[hourCount].sec <= now.sec + 3600) hourCount++;

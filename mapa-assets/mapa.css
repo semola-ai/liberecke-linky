@@ -290,6 +290,14 @@
 .ms-note { flex: 1 1 100%; line-height: 1.35; }   /* poznámka o polohách vozidel – na celý řádek */
 
 /* stavová hláška uprostřed mapy */
+/* hláška „jízdní řád pro dnešek není k dispozici" – nad mapou, mapu neblokuje */
+.ms-tt-banner {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 800;
+  max-width: calc(100% - 120px); padding: 6px 12px; border-radius: 4px;
+  background: rgba(255, 255, 255, .95); box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+  color: #5a6670; font-size: 14px; text-align: center; pointer-events: none;
+}
+
 .ms-msg {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   text-align: center; color: #5a6670; font-size: 15px; padding: 20px; z-index: 500;

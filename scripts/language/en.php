@@ -91,6 +91,7 @@ $lang['mapa_vozidla']          = 'Vehicles';
 $lang['mapa_barevne_linky']    = 'Coloured lines';
 $lang['mapa_odjezdy']          = 'Departures';
 $lang['mapa_odjezdy_zadne']    = 'Nothing departs here right now.';
+$lang['mapa_jr_nedostupny']    = 'No timetable is available for today.';
 $lang['mapa_jr_spoje']         = 'Trip schedule';
 
 // line-category legend on the map (labels for typy_linek categories)

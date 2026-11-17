@@ -91,6 +91,7 @@ $lang['mapa_vozidla']          = 'Vozidla';
 $lang['mapa_barevne_linky']    = 'Barevné linky';
 $lang['mapa_odjezdy']          = 'Odjezdy';
 $lang['mapa_odjezdy_zadne']    = 'Odsud teď nic nejede.';
+$lang['mapa_jr_nedostupny']    = 'Jízdní řád pro dnešek není k dispozici.';
 $lang['mapa_jr_spoje']         = 'Jízdní řád spoje';
 
 // legenda kategorií linek na mapě (popisky ke kategoriím v typy_linek)
