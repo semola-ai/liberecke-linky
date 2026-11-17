@@ -10,6 +10,9 @@ name: Update map data
 on:
   schedule:
     - cron: '0 4 * * *'   # denně 04:00 UTC
+    # těsně po půlnoci pražského času (00:05 SEČ / 01:05 SELČ) – v den začátku
+    # platnosti nového feedu ho nasadí hned, ne až ráno (viz tools/feed_gate.py)
+    - cron: '5 23 * * *'
   workflow_dispatch: {}    # lze spustit i ručně
 
 permissions:
@@ -62,15 +65,25 @@ jobs:
           fi
           unzip -o -q gtfs.zip -d gtfs
 
+      # Nový feed DPMLJ často nahraje 1–2 dny před začátkem platnosti. Dokud
+      # nezačne platit a stávající data dnešek pokrývají, data nenahrazujeme –
+      # jinak by mapa do té doby neměla jízdní řád (vozidla ani odjezdy).
+      - name: Platí nový feed už dnes?
+        id: gate
+        run: python tools/feed_gate.py
+
       - name: Přegeneruj data
+        if: steps.gate.outputs.build == 'true'
         run: python tools/build_data.py
 
       - name: Kontrola rozumnosti dat
+        if: steps.gate.outputs.build == 'true'
         run: |
           python -c "import json,sys; c=json.load(open('mapa-assets/data/meta.json'))['counts']; (sys.exit('Podezřele málo dat: %s – přerušuji.' % c) if (c['routes']<20 or c['stops']<100 or c.get('trips',0)<500) else print('OK:', c))"
 
       - name: Změnila se data?
         id: diff
+        if: steps.gate.outputs.build == 'true'
         run: |
           if [ -n "$(git status --porcelain mapa-assets/data)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
