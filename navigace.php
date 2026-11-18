@@ -139,7 +139,7 @@ usort($sortedLines, static function ($a, $b) {
   <h2><?= $esc($t('nav_nadpis', 'Trasy linek do navigace')) ?></h2>
   <?php if ($notFound): ?><p class="nav-warn"><?= $esc($t('nav_nenalezeno')) ?></p><?php endif; ?>
   <p><?= $esc($t('nav_intro')) ?></p>
-  <p class="nav-howto"><?= $esc($t('nav_navod')) ?></p>
+  <p class="nav-howto"><?= $esc($t('nav_navod')) ?> <a href="#navod"><?= $esc($t('nav_navod_odkaz', 'Podrobný návod')) ?> &darr;</a></p>
   <?php if (!empty($nav['valid_from'])): ?>
   <p class="nav-meta"><?= $esc(sprintf($t('nav_platnost', 'Data platná %s až %s.'), $isoToCz($nav['valid_from']), $isoToCz($nav['valid_to'] ?? ''))) ?> Data: <a href="https://www.dpmlj.cz/opendata" target="_blank" rel="noopener">DPMLJ a.s.</a></p>
   <?php endif; ?>
@@ -174,7 +174,7 @@ usort($sortedLines, static function ($a, $b) {
       <figcaption><?= $esc($t('nav_qr')) ?></figcaption>
     </figure>
   </div>
-  <p class="nav-howto"><?= $esc($t('nav_navod')) ?></p>
+  <p class="nav-howto"><?= $esc($t('nav_navod')) ?> <a href="#navod"><?= $esc($t('nav_navod_odkaz', 'Podrobný návod')) ?> &darr;</a></p>
 
   <ol class="nav-variants">
     <?php foreach (($L['variants'] ?? []) as $v): ?>
@@ -206,6 +206,8 @@ usort($sortedLines, static function ($a, $b) {
     <?php endforeach; ?>
   </ol>
 <?php endif; ?>
+
+  <section id="navod" class="nav-guide"><?= $t('nav_navod_html') ?></section>
 
   <h3><?= $esc($t('nav_zmeny', 'Poslední změny variant')) ?></h3>
   <?php if (!$changes): ?>

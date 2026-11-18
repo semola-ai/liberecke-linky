@@ -129,7 +129,7 @@ $lang['nav_titulek']      = 'Bus route variants for navigation apps (GPX) | Libe
 $lang['nav_popis']        = 'All route variants of Liberec and Jablonec bus lines as GPX files for navigation apps, updated daily from the GTFS timetable.';
 $lang['nav_nadpis']       = 'Bus routes for navigation apps';
 $lang['nav_intro']        = 'Every route variant of each bus line can be downloaded as a GPX file: the actual path from the timetable and the stops in order. Files are refreshed automatically from current DPMLJ data and the link to a variant stays the same. Short-turn trips are covered by the longer variant.';
-$lang['nav_navod']        = 'How to use: open the GPX file on your phone in Mapy.com (route import) or OsmAnd and follow the imported track. Do not let the app recalculate it as a car route: it does not know bus lanes or bus-only passages. The imported track is a copy, so re-import it after the variant changes.';
+$lang['nav_navod']        = 'How to use: open the GPX file on your phone in OsmAnd and start navigation along the track. Mapy.com can only display the track. The imported track is a copy on your phone: re-import it after the variant changes.';
 $lang['nav_platnost']     = 'Data valid %s to %s.';
 $lang['nav_vyber']        = 'Choose a line';
 $lang['nav_zmeny']        = 'Recent variant changes';
@@ -161,3 +161,39 @@ $lang['nav_zrusena_nadpis'] = 'This variant no longer runs';
 $lang['nav_zrusena_text']   = 'Variant “%s” of line %s is not in the timetable since %s. Current variants of the line are listed below.';
 $lang['nav_nenalezeno']   = 'This route or line is not in the data.';
 $lang['nav_mapa_odkaz']   = 'Route for navigation (GPX)';
+$lang['nav_navod_odkaz'] = 'Step-by-step guide';
+// návod k GPX – HTML (statický text, vypisuje se bez escapování)
+$lang['nav_navod_html'] = <<<'HTML'
+<h3>How to use the GPX file</h3>
+<p>The GPX file contains the variant's path and its stops in order (as points “1. Name”, “2. Name”…). Download it with the <strong>Download GPX</strong> button of a variant. Your phone saves it to Downloads or offers an app to open it with.</p>
+<details open>
+  <summary><strong>OsmAnd: navigation along the track</strong> (Android and iPhone, recommended)</summary>
+  <ol>
+    <li>Install OsmAnd (Google Play / App Store) and download the offline map of the Liberec Region in the app.</li>
+    <li>Tap <strong>Download GPX</strong> on this page and open the file in OsmAnd. If the phone only saves it, open it from Downloads and choose OsmAnd, or in OsmAnd: <em>Menu → My Places → Tracks → Import</em>.</li>
+    <li>Tap the track (or pick it from the track list) and choose <strong>Follow track</strong>.</li>
+    <li>Keep <strong>Attach to the roads</strong> switched off. Otherwise the app recalculates the route as a car would and may avoid bus lanes or bus-only passages.</li>
+    <li>Choose whether to be guided to the start of the track or to its nearest point (useful when leaving the depot or joining the route midway).</li>
+    <li>Start navigation. Voice prompts follow the shape of the track and may announce ordinary bends too.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>Mapy.com: display only</strong></summary>
+  <ol>
+    <li>Importing requires signing in to a Mapy.com account.</li>
+    <li>In the app open <em>Places and routes</em> (or <em>My Maps</em>) and choose <strong>Import GPX</strong>, or open the file from Downloads in Mapy.com. On a computer you can drag the file onto the map at mapy.com; it then appears on your phone under the same account.</li>
+    <li>The track and stops are shown on the map as a guide. Mapy.com offers no voice navigation along an imported track; if you let Mapy.com plan the route itself, it guides you as a car, not along the bus route.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>Tips</strong></summary>
+  <ul>
+    <li>Download routes in advance, not while driving. Keep the phone in a fixed holder.</li>
+    <li>The <em>All variants of the line in one GPX</em> file is good for seeing where the line runs. For navigation use a specific variant, otherwise the app cannot tell which path to follow.</li>
+    <li>Each variant covers one direction. The return direction is a separate variant.</li>
+    <li>An imported track does not update itself. When <em>Recent variant changes</em> lists a new entry for the line, download the variant again and delete the old one in the app. The file address stays the same.</li>
+    <li>The path comes from the DPMLJ timetable (GTFS) and may be simplified. Road signs and dispatcher instructions always take precedence.</li>
+    <li>Menu labels in the apps may differ slightly between versions.</li>
+  </ul>
+</details>
+HTML;

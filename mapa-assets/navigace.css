@@ -40,6 +40,12 @@
 .nav-changes em { color: #6b7d8c; }
 .nav-ch-zrusena span:not(.nav-badge):not(.nav-ch-date) { text-decoration: line-through; }
 
+.nav-guide { margin-top: 28px; }
+.nav-guide details { border: 1px solid #d5dee6; border-radius: 8px; padding: 10px 16px; margin: 0 0 10px; }
+.nav-guide summary { cursor: pointer; color: #23475f; }
+.nav-guide ol, .nav-guide ul { margin: 10px 0 4px; padding-left: 22px; font-size: 15px; }
+.nav-guide li { margin: 0 0 6px; }
+
 @media (max-width: 600px) {
   .nav-head { flex-direction: column; }
   .nav-qr { display: none; }           /* QR je pro přenos z počítače do telefonu */
