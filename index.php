@@ -169,6 +169,7 @@ if ($selLinka !== null) {
       <span class="nadpis-switch">
         <a class="current" href="<?= htmlspecialchars(keep_params(['ja' => $l]), ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($lang['prehled_nav'] ?? $lang['prehled'], ENT_QUOTES, 'UTF-8') ?></a>
         <a href="<?= htmlspecialchars(($__appBase === '' ? '' : $__appBase) . '/mapa' . keep_params(['ja' => $l]), ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($lang['mapa_nav'] ?? 'Interaktivní mapa', ENT_QUOTES, 'UTF-8') ?></a>
+        <a href="<?= htmlspecialchars(($__appBase === '' ? '' : $__appBase) . '/navigace' . ($l !== 'cz' ? '?ja=' . rawurlencode($l) : ''), ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($lang['nav_nav'] ?? 'Navigace', ENT_QUOTES, 'UTF-8') ?></a>
       </span>
     </div>
 

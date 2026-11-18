@@ -1,4 +1,5 @@
 AddDefaultCharset UTF-8
+AddType application/gpx+xml .gpx
 
 # Bezpe?nostn� hlavi?ky
 <IfModule mod_headers.c>
@@ -28,4 +29,8 @@ AddDefaultCharset UTF-8
   RewriteEngine On
   RewriteRule ^mapa/([0-9]{4})/?$ mapa.php?rok=$1 [L,QSA]
   RewriteRule ^mapa/?$ mapa.php [L]
+  # Navigace pro řidiče: /navigace, /navigace/<linka>, /navigace/<varianta>.gpx (GPX z mapa-assets/navigace/)
+  RewriteRule ^navigace/([A-Za-z0-9-]+)\.gpx$ navigace.php?gpx=$1 [L,QSA]
+  RewriteRule ^navigace/([^/]+)/?$ navigace.php?linka=$1 [L,QSA]
+  RewriteRule ^navigace/?$ navigace.php [L,QSA]
 </IfModule>

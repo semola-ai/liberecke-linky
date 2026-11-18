@@ -1,5 +1,6 @@
 # Automatická aktualizace mapových dat z GTFS.
-# Denně stáhne feed DPMLJ, přegeneruje mapa-assets/data/*.json a když se data
+# Denně stáhne feed DPMLJ, přegeneruje mapa-assets/data/*.json a GPX variant linek
+# pro navigaci (mapa-assets/navigace/*.gpx) a když se data
 # změní (nový feed), commitne je a nasadí na produkci přes FTP.
 # (Push robotem sám nespustí deploy-ftp.yml, proto deployuje tenhle workflow.)
 #
@@ -79,13 +80,13 @@ jobs:
       - name: Kontrola rozumnosti dat
         if: steps.gate.outputs.build == 'true'
         run: |
-          python -c "import json,sys; c=json.load(open('mapa-assets/data/meta.json'))['counts']; (sys.exit('Podezřele málo dat: %s – přerušuji.' % c) if (c['routes']<20 or c['stops']<100 or c.get('trips',0)<500) else print('OK:', c))"
+          python -c "import json,sys; c=json.load(open('mapa-assets/data/meta.json'))['counts']; (sys.exit('Podezřele málo dat: %s – přerušuji.' % c) if (c['routes']<20 or c['stops']<100 or c.get('trips',0)<500 or c.get('nav_variants',0)<30) else print('OK:', c))"
 
       - name: Změnila se data?
         id: diff
         if: steps.gate.outputs.build == 'true'
         run: |
-          if [ -n "$(git status --porcelain mapa-assets/data)" ]; then
+          if [ -n "$(git status --porcelain mapa-assets/data mapa-assets/navigace)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -98,7 +99,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           VALID=$(python -c "import json;print(json.load(open('mapa-assets/data/meta.json'))['valid_to'])")
-          git add mapa-assets/data
+          git add -A mapa-assets/data mapa-assets/navigace
           git commit -m "Update map data from GTFS (valid to ${VALID})"
           git push
 

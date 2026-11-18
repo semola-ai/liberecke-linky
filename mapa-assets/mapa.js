@@ -1120,10 +1120,21 @@
       (r.approximate ? '<p class="ms-legacy-note">' + (T.legacyNote || "Trasa je přibližná.") + "</p>" : "") +
       '<a class="ms-detaillink" href="' + esc(detailUrl) + '">' +
         (T.detailLink || "Detail a historie linky") + " &rarr;</a>" +
+      navLinkHtml(r) +
       stopsSection;
 
     bindDetail();
     showDetail(true);
+  }
+
+  // odkaz na varianty trasy pro navigaci (navigace.php) – jen linky, které je mají
+  function navLinkHtml(r) {
+    var nl = (window.MAPA && window.MAPA.navLines) || {};
+    if (r.legacy || !Object.prototype.hasOwnProperty.call(nl, r.short_name)) return "";
+    var url = BASE + "/navigace/" + encodeURIComponent(nl[r.short_name]) +
+              (JA && JA !== "cz" ? "?ja=" + encodeURIComponent(JA) : "");
+    return '<a class="ms-detaillink" href="' + esc(url) + '">' +
+      esc(T.navLink || "Trasa do navigace (GPX)") + " &rarr;</a>";
   }
 
   // ── FOCUS: zastávka ──────────────────────────────────────────────

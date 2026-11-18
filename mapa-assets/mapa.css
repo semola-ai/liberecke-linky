@@ -346,3 +346,6 @@
   .mapa-layout { height: calc(100vh - 150px); height: calc(100dvh - 150px); min-height: 400px; gap: 6px; padding: 0 6px; }
   #mapa-sidebar { flex: 0 0 44%; max-width: 240px; font-size: 13px; }
 }
+
+/* druhý prolink (Trasa do navigace) pod detailem linky */
+.ms-detaillink + .ms-detaillink { display: block; margin-top: -6px; }

@@ -122,3 +122,87 @@ $lang['historie_intro']     = "Na této záložce najdete historii vývoje dané
 $lang['pohledridice_intro'] = "Na této záložce najdete video linky zachycené z kabiny řidiče a krátký komentář. Pokračujte výběrem linky v horním menu.";
 $lang['mistopis_intro']     = "Na této záložce najdete místopisné články o místech, kterými daná linka projíždí. Pokračujte výběrem linky v horním menu.";
 $lang['fotogalerie_intro']  = "Na této záložce najdete odkaz na fotogalerii vážící se k dané lince. Pokračujte výběrem linky v horním menu.";
+
+// navigace pro řidiče (navigace.php, varianty tras jako GPX)
+$lang['nav_nav']          = 'Navigace';
+$lang['nav_titulek']      = 'Trasy autobusových linek do navigace (GPX) | Liberecké linky';
+$lang['nav_popis']        = 'Všechny varianty tras autobusových linek MHD Liberec a Jablonec n. N. ke stažení jako GPX do navigace, denně aktualizované podle jízdního řádu (GTFS).';
+$lang['nav_nadpis']       = 'Trasy linek do navigace';
+$lang['nav_intro']        = 'Každá varianta trasy autobusové linky je ke stažení jako soubor GPX: skutečná trasa podle jízdního řádu a zastávky v pořadí. Soubory se automaticky obnovují podle aktuálních dat DPMLJ, odkaz na variantu se nemění. Zkrácené spoje jsou zahrnuté v delší variantě.';
+$lang['nav_navod']        = 'Jak na to: u varianty klepněte v telefonu na „Navigovat v Mapy.com“. Trasa autem se otevře v aplikaci Mapy.com a navigaci spustíte zeleným tlačítkem. Soubor GPX slouží k zobrazení přesné trasy a pro aplikaci OsmAnd.';
+$lang['nav_platnost']     = 'Data platná %s až %s.';
+$lang['nav_vyber']        = 'Vyberte linku';
+$lang['nav_zmeny']        = 'Poslední změny variant';
+$lang['nav_zadne_zmeny']  = 'Zatím bez zaznamenaných změn.';
+$lang['nav_zmena_nova']     = 'nová varianta';
+$lang['nav_zmena_zastavky'] = 'změna zastávek';
+$lang['nav_zmena_trasa']    = 'změna trasy';
+$lang['nav_zmena_zrusena']  = 'zrušena';
+$lang['nav_linka']        = 'Linka %s';
+$lang['nav_variant_1']    = '%d varianta';
+$lang['nav_variant_2']    = '%d varianty';
+$lang['nav_variant_5']    = '%d variant';
+$lang['nav_stahnout']     = 'Stáhnout GPX';
+$lang['nav_vse_gpx']      = 'Všechny varianty linky v jednom GPX';
+$lang['nav_zastavek']     = '%d zastávek';
+$lang['nav_km']           = '%s km';
+$lang['nav_spoju']        = 'spojů po celé trase: %d';
+$lang['nav_zkracene']     = 'zkrácených spojů: %d';
+$lang['nav_dny_po-pa']    = 'Po–Pá';
+$lang['nav_dny_so']       = 'So';
+$lang['nav_dny_ne']       = 'Ne';
+$lang['nav_jen_od']       = 'jede od %s';
+$lang['nav_jen_do']       = 'jede do %s';
+$lang['nav_priblizna']    = 'Trasa je přibližná (spojnice zastávek), GTFS pro ni nemá geometrii.';
+$lang['nav_zastavky']     = 'Zastávky';
+$lang['nav_qr']           = 'Naskenujte telefonem a otevřete tuto stránku tam.';
+$lang['nav_zpet']         = 'Všechny linky';
+$lang['nav_zrusena_nadpis'] = 'Varianta už nejede';
+$lang['nav_zrusena_text']   = 'Varianta „%s“ linky %s není od %s v jízdním řádu. Aktuální varianty linky najdete níže.';
+$lang['nav_nenalezeno']   = 'Tato trasa ani linka v datech není.';
+$lang['nav_mapa_odkaz']   = 'Trasa do navigace (GPX)';
+$lang['nav_navod_odkaz'] = 'Podrobný návod';
+// návod k GPX – HTML (statický text, vypisuje se bez escapování)
+$lang['nav_navod_html'] = <<<'HTML'
+<h3>Jak soubor GPX použít</h3>
+<p>U každé varianty jsou dvě možnosti: tlačítko <strong>Navigovat v Mapy.com</strong> otevře trasu autem rovnou v aplikaci Mapy.com, soubor <strong>GPX</strong> obsahuje přesnou trasu linky a zastávky v pořadí (pro zobrazení a pro OsmAnd).</p>
+<details open>
+  <summary><strong>Mapy.com: navigace</strong> (Android i iPhone, doporučeno)</summary>
+  <ol>
+    <li>Na této stránce v telefonu klepněte u varianty na <strong>Navigovat v Mapy.com</strong>. Otevře se aplikace Mapy.com s naplánovanou trasou autem (bez aplikace se otevře web mapy.com).</li>
+    <li>Zkontrolujte, že je zvolené auto, a spusťte navigaci zeleným tlačítkem se šipkou.</li>
+    <li>Pro příště si trasu můžete uložit do <em>Moje Mapy</em> (případně do sdílené složky). Uložená trasa se otevírá rovnou jako trasa autem s navigací. Po změně varianty ji uložte znovu z odkazu na této stránce a starou smažte.</li>
+    <li>Mapy.com vedou trasu autem přes nejvýš 15 průjezdních bodů, vybraných v místech, kde se trasa linky láme. Mezi nimi si cestu dopočítají samy, a tak tam, kam auto nesmí (průjezdy „mimo BUS“, buspruhy, otočky), mohou vést jinudy. Tam se řiďte trasou linky. Pro srovnání si ji můžete zobrazit ze souboru GPX.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>Mapy.com: zobrazení přesné trasy ze souboru GPX</strong></summary>
+  <ol>
+    <li>Klepněte na <strong>Stáhnout GPX</strong> a soubor otevřete v Mapy.com (nebo <em>Místa a trasy</em> → <strong>Import GPX</strong>). Import vyžaduje přihlášení.</li>
+    <li>Uloží se přesná trasa linky jako „Cesta“ (s ikonou chodce) a každá zastávka jako samostatný bod. Navigaci autem po ní Mapy.com nenabízí, slouží jako vodítko v mapě.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>OsmAnd: vedení přesně po trase</strong> (Android i iPhone, alternativa)</summary>
+  <ol>
+    <li>Nainstalujte OsmAnd (Google Play / App Store) a v aplikaci si stáhněte offline mapu Libereckého kraje.</li>
+    <li>Na této stránce klepněte na <strong>Stáhnout GPX</strong> a soubor otevřete v OsmAnd. Pokud ho telefon jen uloží, otevřete ho ze Stažených souborů a zvolte OsmAnd, nebo v OsmAnd: <em>Menu → Moje místa → Stopy → Importovat</em>.</li>
+    <li>Klepněte na trasu (nebo ji vyberte v seznamu stop) a zvolte <strong>Sledovat trasu</strong> (anglicky <em>Follow track</em>).</li>
+    <li>V nastavení sledování nechte volbu <strong>Připojit k silnicím</strong> vypnutou. Jinak by aplikace trasu přepočítala jako pro auto a nemusela by projet buspruhem nebo průjezdem „mimo BUS“.</li>
+    <li>Zvolte, jestli vás má aplikace navést na začátek trasy, nebo na nejbližší bod (hodí se, když vyjíždíte z vozovny nebo nastupujete do trasy jinde).</li>
+    <li>Spusťte navigaci. Hlasové pokyny se řídí tvarem trasy, u trasy bez křižovatkových údajů mohou ohlašovat i běžné zatáčky.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>Tipy</strong></summary>
+  <ul>
+    <li>Trasy si stáhněte předem, ne za jízdy. Telefon mějte v pevném držáku.</li>
+    <li>Soubor <em>Všechny varianty linky v jednom GPX</em> se hodí k prohlédnutí, kudy linka jezdí. Pro navigaci použijte konkrétní variantu, jinak aplikace neví, kterou trasou vést.</li>
+    <li>Každá varianta je jen jedním směrem. Zpáteční směr je samostatná varianta.</li>
+    <li>Načtená trasa se v telefonu sama neaktualizuje. Když je u linky v části <em>Poslední změny variant</em> nový záznam, stáhněte variantu znovu a starou v aplikaci smažte. Adresa souboru zůstává stejná.</li>
+    <li>Trasa vychází z jízdního řádu DPMLJ (GTFS) a může být zjednodušená. Vždy platí dopravní značení a pokyny dispečinku.</li>
+    <li>Názvy položek v aplikacích se mohou podle verze mírně lišit.</li>
+  </ul>
+</details>
+HTML;
+$lang['nav_mapy_btn'] = 'Navigovat v Mapy.com';
