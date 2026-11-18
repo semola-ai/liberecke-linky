@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 28: Růžodol I → Pavlovice křižovatka</name>
+<desc>Linka 28: Růžodol I → Pavlovice křižovatka. Trasa podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-18 až 2026-12-23. Zastávek 2, délka 1.7 km. Trasa je jen přibližná (spojnice zastávek). Data: DPMLJ a.s., trasa může být zjednodušená – řiďte se dopravním značením.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/28"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.774193" lon="15.039639"><name>1. Růžodol I</name><desc>Linka 28, zastávka 1/2</desc><type>Zastávka</type></wpt>
+<wpt lat="50.789356" lon="15.044764"><name>2. Pavlovice křižovatka</name><desc>Linka 28, zastávka 2/2</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 28: Růžodol I → Pavlovice křižovatka</name><trkseg>
+<trkpt lat="50.774193" lon="15.039639"/>
+<trkpt lat="50.789356" lon="15.044764"/>
+</trkseg></trk>
+</gpx>

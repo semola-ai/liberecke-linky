@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 500: Fügnerova → OC Nisa</name>
+<desc>Linka 500: Fügnerova → OC Nisa. Trasa podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-18 až 2026-12-23. Zastávek 2, délka 3.1 km. Data: DPMLJ a.s., trasa může být zjednodušená – řiďte se dopravním značením.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/500"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.765511" lon="15.057374"><name>1. Fügnerova</name><desc>Linka 500, zastávka 1/2</desc><type>Zastávka</type></wpt>
+<wpt lat="50.741039" lon="15.050480"><name>2. OC Nisa</name><desc>Linka 500, zastávka 2/2</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 500: Fügnerova → OC Nisa</name><trkseg>
+<trkpt lat="50.765121" lon="15.057120"/>
+<trkpt lat="50.765072" lon="15.057040"/>
+<trkpt lat="50.765060" lon="15.056960"/>
+<trkpt lat="50.765079" lon="15.056740"/>
+<trkpt lat="50.765072" lon="15.056400"/>
+<trkpt lat="50.765141" lon="15.056170"/>
+<trkpt lat="50.765179" lon="15.055260"/>
+<trkpt lat="50.765148" lon="15.055120"/>
+<trkpt lat="50.764992" lon="15.054860"/>
+<trkpt lat="50.764931" lon="15.054800"/>
+<trkpt lat="50.764751" lon="15.054730"/>
+<trkpt lat="50.764671" lon="15.054730"/>
+<trkpt lat="50.764381" lon="15.054800"/>
+<trkpt lat="50.764000" lon="15.054800"/>
+<trkpt lat="50.763882" lon="15.054770"/>
+<trkpt lat="50.763618" lon="15.054590"/>
+<trkpt lat="50.762840" lon="15.053870"/>
+<trkpt lat="50.762772" lon="15.053830"/>
+<trkpt lat="50.762669" lon="15.053800"/>
+<trkpt lat="50.762451" lon="15.053790"/>
+<trkpt lat="50.762329" lon="15.053770"/>
+<trkpt lat="50.762249" lon="15.053740"/>
+<trkpt lat="50.762070" lon="15.053630"/>
+<trkpt lat="50.761890" lon="15.053490"/>
+<trkpt lat="50.761761" lon="15.053420"/>
+<trkpt lat="50.761662" lon="15.053390"/>
+<trkpt lat="50.761589" lon="15.053400"/>
+<trkpt lat="50.761501" lon="15.053450"/>
+<trkpt lat="50.761398" lon="15.053560"/>
+<trkpt lat="50.760769" lon="15.054370"/>
+<trkpt lat="50.760681" lon="15.054350"/>
+<trkpt lat="50.759838" lon="15.053300"/>
+<trkpt lat="50.759701" lon="15.053150"/>
+<trkpt lat="50.759609" lon="15.053020"/>
+<trkpt lat="50.759418" lon="15.052860"/>
+<trkpt lat="50.758739" lon="15.052030"/>
+<trkpt lat="50.758179" lon="15.050340"/>
+<trkpt lat="50.758110" lon="15.050160"/>
+<trkpt lat="50.758049" lon="15.050110"/>
+<trkpt lat="50.757999" lon="15.050110"/>
+<trkpt lat="50.757641" lon="15.050390"/>
+<trkpt lat="50.756168" lon="15.051640"/>
+<trkpt lat="50.756069" lon="15.051850"/>
+<trkpt lat="50.756031" lon="15.052080"/>
+<trkpt lat="50.755981" lon="15.052260"/>
+<trkpt lat="50.755890" lon="15.052400"/>
+<trkpt lat="50.755840" lon="15.052430"/>
+<trkpt lat="50.755619" lon="15.052470"/>
+<trkpt lat="50.755482" lon="15.052540"/>
+<trkpt lat="50.754990" lon="15.052580"/>
+<trkpt lat="50.754421" lon="15.052600"/>
+<trkpt lat="50.754002" lon="15.052680"/>
+<trkpt lat="50.750992" lon="15.053600"/>
+<trkpt lat="50.749809" lon="15.053890"/>
+<trkpt lat="50.749168" lon="15.054010"/>
+<trkpt lat="50.748520" lon="15.054080"/>
+<trkpt lat="50.747391" lon="15.054130"/>
+<trkpt lat="50.746140" lon="15.054130"/>
+<trkpt lat="50.745060" lon="15.054070"/>
+<trkpt lat="50.744720" lon="15.054040"/>
+<trkpt lat="50.744209" lon="15.053930"/>
+<trkpt lat="50.743401" lon="15.053800"/>
+<trkpt lat="50.743019" lon="15.053700"/>
+<trkpt lat="50.742908" lon="15.053660"/>
+<trkpt lat="50.742760" lon="15.053440"/>
+<trkpt lat="50.742729" lon="15.053310"/>
+<trkpt lat="50.742729" lon="15.053060"/>
+<trkpt lat="50.742710" lon="15.052970"/>
+<trkpt lat="50.742691" lon="15.052890"/>
+<trkpt lat="50.742611" lon="15.052790"/>
+<trkpt lat="50.742008" lon="15.052570"/>
+<trkpt lat="50.741940" lon="15.052520"/>
+<trkpt lat="50.741840" lon="15.052370"/>
+<trkpt lat="50.741779" lon="15.052200"/>
+<trkpt lat="50.741779" lon="15.052040"/>
+<trkpt lat="50.741749" lon="15.051980"/>
+<trkpt lat="50.741711" lon="15.051940"/>
+<trkpt lat="50.741661" lon="15.051940"/>
+<trkpt lat="50.741619" lon="15.051960"/>
+<trkpt lat="50.741520" lon="15.051950"/>
+<trkpt lat="50.741470" lon="15.051910"/>
+<trkpt lat="50.741371" lon="15.051770"/>
+<trkpt lat="50.741268" lon="15.051680"/>
+</trkseg></trk>
+</gpx>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 29: Fügnerova → Kunratická sídliště</name>
+<desc>Linka 29: Fügnerova → Kunratická sídliště. Trasa podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-18 až 2026-12-23. Zastávek 10, délka 5.0 km. Data: DPMLJ a.s., trasa může být zjednodušená – řiďte se dopravním značením.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/29"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.765511" lon="15.057374"><name>1. Fügnerova</name><desc>Linka 29, zastávka 1/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.769348" lon="15.060575"><name>2. Šaldovo náměstí</name><desc>Linka 29, zastávka 2/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.770496" lon="15.062896"><name>3. Nemocnice</name><desc>Linka 29, zastávka 3/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.771713" lon="15.071121"><name>4. Husova</name><desc>Linka 29, zastávka 4/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.772537" lon="15.076513"><name>5. Technická univerzita</name><desc>Linka 29, zastávka 5/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.768337" lon="15.087370"><name>6. Univerzitní koleje</name><desc>Linka 29, zastávka 6/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.766930" lon="15.089337"><name>7. U Terstu</name><desc>Linka 29, zastávka 7/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.762115" lon="15.090578"><name>8. Hrubínova</name><desc>Linka 29, zastávka 8/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.760277" lon="15.091669"><name>9. Východní</name><desc>Linka 29, zastávka 9/10</desc><type>Zastávka</type></wpt>
+<wpt lat="50.760777" lon="15.095887"><name>10. Kunratická sídliště</name><desc>Linka 29, zastávka 10/10</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 29: Fügnerova → Kunratická sídliště</name><trkseg>
+<trkpt lat="50.765862" lon="15.057640"/>
+<trkpt lat="50.766079" lon="15.057920"/>
+<trkpt lat="50.766109" lon="15.058010"/>
+<trkpt lat="50.766079" lon="15.058160"/>
+<trkpt lat="50.765591" lon="15.058270"/>
+<trkpt lat="50.765530" lon="15.058300"/>
+<trkpt lat="50.765450" lon="15.058350"/>
+<trkpt lat="50.765430" lon="15.058530"/>
+<trkpt lat="50.765442" lon="15.058630"/>
+<trkpt lat="50.765560" lon="15.058990"/>
+<trkpt lat="50.765831" lon="15.059600"/>
+<trkpt lat="50.765991" lon="15.059770"/>
+<trkpt lat="50.766739" lon="15.060160"/>
+<trkpt lat="50.767090" lon="15.060310"/>
+<trkpt lat="50.767208" lon="15.060320"/>
+<trkpt lat="50.767799" lon="15.060170"/>
+<trkpt lat="50.768291" lon="15.060300"/>
+<trkpt lat="50.768391" lon="15.060270"/>
+<trkpt lat="50.768490" lon="15.060190"/>
+<trkpt lat="50.768559" lon="15.060170"/>
+<trkpt lat="50.769402" lon="15.060340"/>
+<trkpt lat="50.769390" lon="15.060340"/>
+<trkpt lat="50.769569" lon="15.060400"/>
+<trkpt lat="50.769878" lon="15.060460"/>
+<trkpt lat="50.769920" lon="15.060480"/>
+<trkpt lat="50.769958" lon="15.060530"/>
+<trkpt lat="50.769970" lon="15.060970"/>
+<trkpt lat="50.770000" lon="15.061140"/>
+<trkpt lat="50.770489" lon="15.062710"/>
+<trkpt lat="50.770531" lon="15.062930"/>
+<trkpt lat="50.770489" lon="15.062900"/>
+<trkpt lat="50.771660" lon="15.071030"/>
+<trkpt lat="50.771740" lon="15.071270"/>
+<trkpt lat="50.771832" lon="15.071810"/>
+<trkpt lat="50.772499" lon="15.076320"/>
+<trkpt lat="50.772499" lon="15.076470"/>
+<trkpt lat="50.772560" lon="15.076730"/>
+<trkpt lat="50.772629" lon="15.077170"/>
+<trkpt lat="50.772640" lon="15.077370"/>
+<trkpt lat="50.772621" lon="15.077560"/>
+<trkpt lat="50.772541" lon="15.077830"/>
+<trkpt lat="50.772331" lon="15.078420"/>
+<trkpt lat="50.772289" lon="15.078640"/>
+<trkpt lat="50.772240" lon="15.079240"/>
+<trkpt lat="50.772209" lon="15.079370"/>
+<trkpt lat="50.772129" lon="15.079450"/>
+<trkpt lat="50.771778" lon="15.079630"/>
+<trkpt lat="50.771629" lon="15.079760"/>
+<trkpt lat="50.771580" lon="15.079810"/>
+<trkpt lat="50.771500" lon="15.079940"/>
+<trkpt lat="50.771431" lon="15.080140"/>
+<trkpt lat="50.771420" lon="15.080340"/>
+<trkpt lat="50.771530" lon="15.081440"/>
+<trkpt lat="50.771519" lon="15.081720"/>
+<trkpt lat="50.771488" lon="15.081970"/>
+<trkpt lat="50.771179" lon="15.083430"/>
+<trkpt lat="50.771099" lon="15.083630"/>
+<trkpt lat="50.771019" lon="15.083700"/>
+<trkpt lat="50.770950" lon="15.083730"/>
+<trkpt lat="50.770691" lon="15.083730"/>
+<trkpt lat="50.770458" lon="15.083770"/>
+<trkpt lat="50.770142" lon="15.083940"/>
+<trkpt lat="50.769958" lon="15.084170"/>
+<trkpt lat="50.768101" lon="15.087450"/>
+<trkpt lat="50.768009" lon="15.087570"/>
+<trkpt lat="50.768028" lon="15.087670"/>
+<trkpt lat="50.768242" lon="15.087850"/>
+<trkpt lat="50.768330" lon="15.087830"/>
+<trkpt lat="50.768379" lon="15.087680"/>
+<trkpt lat="50.768372" lon="15.087490"/>
+<trkpt lat="50.768280" lon="15.087310"/>
+<trkpt lat="50.768219" lon="15.087250"/>
+<trkpt lat="50.768188" lon="15.087260"/>
+<trkpt lat="50.768002" lon="15.087630"/>
+<trkpt lat="50.767429" lon="15.088570"/>
+<trkpt lat="50.767288" lon="15.088930"/>
+<trkpt lat="50.766918" lon="15.088910"/>
+<trkpt lat="50.766850" lon="15.088870"/>
+<trkpt lat="50.766609" lon="15.088900"/>
+<trkpt lat="50.766289" lon="15.089190"/>
+<trkpt lat="50.766178" lon="15.089340"/>
+<trkpt lat="50.765980" lon="15.089730"/>
+<trkpt lat="50.765888" lon="15.090060"/>
+<trkpt lat="50.765869" lon="15.090200"/>
+<trkpt lat="50.765850" lon="15.090500"/>
+<trkpt lat="50.765881" lon="15.090870"/>
+<trkpt lat="50.766029" lon="15.091510"/>
+<trkpt lat="50.766300" lon="15.092490"/>
+<trkpt lat="50.766331" lon="15.092690"/>
+<trkpt lat="50.766319" lon="15.092860"/>
+<trkpt lat="50.766258" lon="15.093120"/>
+<trkpt lat="50.766129" lon="15.093330"/>
+<trkpt lat="50.766048" lon="15.093400"/>
+<trkpt lat="50.765919" lon="15.093450"/>
+<trkpt lat="50.765839" lon="15.093460"/>
+<trkpt lat="50.765701" lon="15.093420"/>
+<trkpt lat="50.765591" lon="15.093340"/>
+<trkpt lat="50.765518" lon="15.093220"/>
+<trkpt lat="50.765469" lon="15.093130"/>
+<trkpt lat="50.765400" lon="15.092910"/>
+<trkpt lat="50.765362" lon="15.092700"/>
+<trkpt lat="50.765320" lon="15.092220"/>
+<trkpt lat="50.765240" lon="15.091770"/>
+<trkpt lat="50.765179" lon="15.091620"/>
+<trkpt lat="50.765030" lon="15.091350"/>
+<trkpt lat="50.764912" lon="15.091240"/>
+<trkpt lat="50.764641" lon="15.091170"/>
+<trkpt lat="50.764519" lon="15.091170"/>
+<trkpt lat="50.764420" lon="15.091200"/>
+<trkpt lat="50.764339" lon="15.091240"/>
+<trkpt lat="50.764240" lon="15.091320"/>
+<trkpt lat="50.763802" lon="15.091760"/>
+<trkpt lat="50.763538" lon="15.091980"/>
+<trkpt lat="50.763351" lon="15.092020"/>
+<trkpt lat="50.763260" lon="15.091990"/>
+<trkpt lat="50.763168" lon="15.091930"/>
+<trkpt lat="50.763000" lon="15.091770"/>
+<trkpt lat="50.762611" lon="15.091080"/>
+<trkpt lat="50.762379" lon="15.090820"/>
+<trkpt lat="50.762230" lon="15.090570"/>
+<trkpt lat="50.762100" lon="15.090440"/>
+<trkpt lat="50.762001" lon="15.090420"/>
+<trkpt lat="50.761551" lon="15.090060"/>
+<trkpt lat="50.761379" lon="15.089960"/>
+<trkpt lat="50.761082" lon="15.089900"/>
+<trkpt lat="50.760712" lon="15.089880"/>
+<trkpt lat="50.760609" lon="15.089920"/>
+<trkpt lat="50.760342" lon="15.091210"/>
+<trkpt lat="50.760250" lon="15.091550"/>
+<trkpt lat="50.760239" lon="15.091800"/>
+<trkpt lat="50.760262" lon="15.091860"/>
+<trkpt lat="50.760262" lon="15.091930"/>
+<trkpt lat="50.760201" lon="15.093120"/>
+<trkpt lat="50.760021" lon="15.094570"/>
+<trkpt lat="50.760029" lon="15.094750"/>
+<trkpt lat="50.760059" lon="15.094880"/>
+<trkpt lat="50.760250" lon="15.095330"/>
+<trkpt lat="50.760361" lon="15.095800"/>
+<trkpt lat="50.760361" lon="15.096310"/>
+<trkpt lat="50.760239" lon="15.096720"/>
+<trkpt lat="50.760342" lon="15.096940"/>
+<trkpt lat="50.760380" lon="15.096980"/>
+<trkpt lat="50.760422" lon="15.096990"/>
+<trkpt lat="50.760471" lon="15.096960"/>
+<trkpt lat="50.760750" lon="15.096720"/>
+<trkpt lat="50.760780" lon="15.096660"/>
+<trkpt lat="50.760769" lon="15.096120"/>
+</trkseg></trk>
+</gpx>

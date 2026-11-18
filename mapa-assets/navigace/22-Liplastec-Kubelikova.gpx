@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 22: Liplastec → Kubelíkova</name>
+<desc>Linka 22: Liplastec → Kubelíkova. Trasa podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-18 až 2026-12-23. Zastávek 5, délka 2.1 km. Data: DPMLJ a.s., trasa může být zjednodušená – řiďte se dopravním značením.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/22"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.734531" lon="15.034134"><name>1. Liplastec</name><desc>Linka 22, zastávka 1/5</desc><type>Zastávka</type></wpt>
+<wpt lat="50.736252" lon="15.037127"><name>2. U Slunného potoka</name><desc>Linka 22, zastávka 2/5</desc><type>Zastávka</type></wpt>
+<wpt lat="50.742989" lon="15.035950"><name>3. Průmyslová</name><desc>Linka 22, zastávka 3/5</desc><type>Zastávka</type></wpt>
+<wpt lat="50.745972" lon="15.035827"><name>4. Banskobystrická</name><desc>Linka 22, zastávka 4/5</desc><type>Zastávka</type></wpt>
+<wpt lat="50.750561" lon="15.032434"><name>5. Kubelíkova</name><desc>Linka 22, zastávka 5/5</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 22: Liplastec → Kubelíkova</name><trkseg>
+<trkpt lat="50.734550" lon="15.034120"/>
+<trkpt lat="50.734581" lon="15.034210"/>
+<trkpt lat="50.734581" lon="15.035290"/>
+<trkpt lat="50.734589" lon="15.035610"/>
+<trkpt lat="50.734612" lon="15.035720"/>
+<trkpt lat="50.734749" lon="15.036080"/>
+<trkpt lat="50.735519" lon="15.037510"/>
+<trkpt lat="50.735600" lon="15.037690"/>
+<trkpt lat="50.735699" lon="15.037840"/>
+<trkpt lat="50.735741" lon="15.037820"/>
+<trkpt lat="50.736252" lon="15.037130"/>
+<trkpt lat="50.736401" lon="15.037020"/>
+<trkpt lat="50.736500" lon="15.036890"/>
+<trkpt lat="50.736542" lon="15.036770"/>
+<trkpt lat="50.736660" lon="15.036610"/>
+<trkpt lat="50.737202" lon="15.036070"/>
+<trkpt lat="50.737411" lon="15.035910"/>
+<trkpt lat="50.737720" lon="15.035770"/>
+<trkpt lat="50.738190" lon="15.035630"/>
+<trkpt lat="50.740799" lon="15.035420"/>
+<trkpt lat="50.741501" lon="15.035390"/>
+<trkpt lat="50.741840" lon="15.035420"/>
+<trkpt lat="50.742161" lon="15.035500"/>
+<trkpt lat="50.742271" lon="15.035550"/>
+<trkpt lat="50.742748" lon="15.035790"/>
+<trkpt lat="50.742889" lon="15.035910"/>
+<trkpt lat="50.742989" lon="15.035960"/>
+<trkpt lat="50.742989" lon="15.035990"/>
+<trkpt lat="50.743050" lon="15.035990"/>
+<trkpt lat="50.743820" lon="15.036360"/>
+<trkpt lat="50.743851" lon="15.036520"/>
+<trkpt lat="50.743870" lon="15.036560"/>
+<trkpt lat="50.743938" lon="15.036620"/>
+<trkpt lat="50.744011" lon="15.036620"/>
+<trkpt lat="50.744091" lon="15.036550"/>
+<trkpt lat="50.744129" lon="15.036420"/>
+<trkpt lat="50.744652" lon="15.036320"/>
+<trkpt lat="50.745602" lon="15.035940"/>
+<trkpt lat="50.745811" lon="15.036020"/>
+<trkpt lat="50.745892" lon="15.036020"/>
+<trkpt lat="50.746311" lon="15.035780"/>
+<trkpt lat="50.746342" lon="15.035740"/>
+<trkpt lat="50.746380" lon="15.035610"/>
+<trkpt lat="50.746449" lon="15.035530"/>
+<trkpt lat="50.747372" lon="15.034970"/>
+<trkpt lat="50.747791" lon="15.034650"/>
+<trkpt lat="50.749538" lon="15.033470"/>
+<trkpt lat="50.749851" lon="15.033220"/>
+<trkpt lat="50.750210" lon="15.032990"/>
+</trkseg></trk>
+</gpx>

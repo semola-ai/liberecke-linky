@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 38 – všechny varianty</name>
+<desc>Linka 38, 2 variant tras podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-18 až 2026-12-23. Data: DPMLJ a.s.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/38"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.765511" lon="15.057374"><name>Fügnerova</name><desc>Linka 38</desc><type>Zastávka</type></wpt>
+<wpt lat="50.761448" lon="15.057891"><name>U Krematoria</name><desc>Linka 38</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 38: Fügnerova → U Krematoria</name><trkseg>
+<trkpt lat="50.765388" lon="15.057060"/>
+<trkpt lat="50.765678" lon="15.057430"/>
+<trkpt lat="50.766109" lon="15.057930"/>
+<trkpt lat="50.766129" lon="15.058050"/>
+<trkpt lat="50.766121" lon="15.058120"/>
+<trkpt lat="50.766079" lon="15.058160"/>
+<trkpt lat="50.765591" lon="15.058270"/>
+<trkpt lat="50.765450" lon="15.058350"/>
+<trkpt lat="50.765400" lon="15.058360"/>
+<trkpt lat="50.765339" lon="15.058330"/>
+<trkpt lat="50.765228" lon="15.058080"/>
+<trkpt lat="50.765160" lon="15.057970"/>
+<trkpt lat="50.765091" lon="15.057900"/>
+<trkpt lat="50.764950" lon="15.057850"/>
+<trkpt lat="50.764912" lon="15.057770"/>
+<trkpt lat="50.764858" lon="15.057740"/>
+<trkpt lat="50.764820" lon="15.057740"/>
+<trkpt lat="50.764759" lon="15.057790"/>
+<trkpt lat="50.764729" lon="15.057860"/>
+<trkpt lat="50.764740" lon="15.057990"/>
+<trkpt lat="50.764648" lon="15.058160"/>
+<trkpt lat="50.764599" lon="15.058330"/>
+<trkpt lat="50.764599" lon="15.058820"/>
+<trkpt lat="50.764580" lon="15.058950"/>
+<trkpt lat="50.764462" lon="15.059340"/>
+<trkpt lat="50.764130" lon="15.060270"/>
+<trkpt lat="50.763981" lon="15.060450"/>
+<trkpt lat="50.763889" lon="15.060520"/>
+<trkpt lat="50.763809" lon="15.060550"/>
+<trkpt lat="50.763660" lon="15.060560"/>
+<trkpt lat="50.762939" lon="15.060420"/>
+<trkpt lat="50.762428" lon="15.060280"/>
+<trkpt lat="50.762119" lon="15.060230"/>
+<trkpt lat="50.761848" lon="15.060260"/>
+<trkpt lat="50.760841" lon="15.060500"/>
+<trkpt lat="50.760639" lon="15.060370"/>
+<trkpt lat="50.760620" lon="15.060330"/>
+<trkpt lat="50.760639" lon="15.060240"/>
+<trkpt lat="50.760880" lon="15.059350"/>
+<trkpt lat="50.760960" lon="15.059110"/>
+<trkpt lat="50.761040" lon="15.058950"/>
+<trkpt lat="50.761169" lon="15.058770"/>
+<trkpt lat="50.761318" lon="15.058240"/>
+<trkpt lat="50.761398" lon="15.058040"/>
+<trkpt lat="50.761440" lon="15.057870"/>
+</trkseg></trk>
+<trk><name>Linka 38: U Krematoria → Fügnerova</name><trkseg>
+<trkpt lat="50.761440" lon="15.057880"/>
+<trkpt lat="50.761459" lon="15.057630"/>
+<trkpt lat="50.761650" lon="15.056770"/>
+<trkpt lat="50.761681" lon="15.056700"/>
+<trkpt lat="50.761829" lon="15.056470"/>
+<trkpt lat="50.762630" lon="15.055440"/>
+<trkpt lat="50.762791" lon="15.055330"/>
+<trkpt lat="50.762909" lon="15.055310"/>
+<trkpt lat="50.763180" lon="15.055410"/>
+<trkpt lat="50.763618" lon="15.055710"/>
+<trkpt lat="50.763699" lon="15.055710"/>
+<trkpt lat="50.763779" lon="15.055680"/>
+<trkpt lat="50.763840" lon="15.055630"/>
+<trkpt lat="50.763901" lon="15.055530"/>
+<trkpt lat="50.763969" lon="15.055280"/>
+<trkpt lat="50.764030" lon="15.055260"/>
+<trkpt lat="50.764420" lon="15.055560"/>
+<trkpt lat="50.764481" lon="15.055640"/>
+<trkpt lat="50.764591" lon="15.055840"/>
+<trkpt lat="50.764671" lon="15.056140"/>
+<trkpt lat="50.764702" lon="15.056420"/>
+<trkpt lat="50.764721" lon="15.056460"/>
+<trkpt lat="50.764900" lon="15.056570"/>
+<trkpt lat="50.764969" lon="15.056640"/>
+<trkpt lat="50.765129" lon="15.056730"/>
+<trkpt lat="50.765240" lon="15.056850"/>
+<trkpt lat="50.765400" lon="15.057080"/>
+</trkseg></trk>
+</gpx>

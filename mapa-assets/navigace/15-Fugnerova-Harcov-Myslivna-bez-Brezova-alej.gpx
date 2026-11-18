@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 15: Fügnerova → Harcov Myslivna (bez Březová alej)</name>
+<desc>Linka 15: Fügnerova → Harcov Myslivna (bez Březová alej). Trasa podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-18 až 2026-12-23. Zastávek 12, délka 5.6 km. Data: DPMLJ a.s., trasa může být zjednodušená – řiďte se dopravním značením.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/15"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.765511" lon="15.057374"><name>1. Fügnerova</name><desc>Linka 15, zastávka 1/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.769348" lon="15.060575"><name>2. Šaldovo náměstí</name><desc>Linka 15, zastávka 2/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.770496" lon="15.062896"><name>3. Nemocnice</name><desc>Linka 15, zastávka 3/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.771713" lon="15.071121"><name>4. Husova</name><desc>Linka 15, zastávka 4/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.772537" lon="15.076513"><name>5. Technická univerzita</name><desc>Linka 15, zastávka 5/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.768337" lon="15.087370"><name>6. Univerzitní koleje</name><desc>Linka 15, zastávka 6/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.766930" lon="15.089337"><name>7. U Terstu</name><desc>Linka 15, zastávka 7/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.767475" lon="15.095407"><name>8. Vlčí vrch</name><desc>Linka 15, zastávka 8/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.765877" lon="15.099695"><name>9. Harcov kostel</name><desc>Linka 15, zastávka 9/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.762032" lon="15.104995"><name>10. Vřesová</name><desc>Linka 15, zastávka 10/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.761482" lon="15.110256"><name>11. Kadlická</name><desc>Linka 15, zastávka 11/12</desc><type>Zastávka</type></wpt>
+<wpt lat="50.758270" lon="15.116867"><name>12. Harcov Myslivna</name><desc>Linka 15, zastávka 12/12</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 15: Fügnerova → Harcov Myslivna (bez Březová alej)</name><trkseg>
+<trkpt lat="50.766010" lon="15.057890"/>
+<trkpt lat="50.766102" lon="15.058040"/>
+<trkpt lat="50.766090" lon="15.058150"/>
+<trkpt lat="50.765591" lon="15.058270"/>
+<trkpt lat="50.765530" lon="15.058300"/>
+<trkpt lat="50.765461" lon="15.058380"/>
+<trkpt lat="50.765442" lon="15.058520"/>
+<trkpt lat="50.765461" lon="15.058660"/>
+<trkpt lat="50.765560" lon="15.058990"/>
+<trkpt lat="50.765831" lon="15.059600"/>
+<trkpt lat="50.765999" lon="15.059770"/>
+<trkpt lat="50.766769" lon="15.060170"/>
+<trkpt lat="50.766972" lon="15.060270"/>
+<trkpt lat="50.767109" lon="15.060320"/>
+<trkpt lat="50.767231" lon="15.060330"/>
+<trkpt lat="50.767448" lon="15.060280"/>
+<trkpt lat="50.767799" lon="15.060170"/>
+<trkpt lat="50.768188" lon="15.060280"/>
+<trkpt lat="50.768391" lon="15.060320"/>
+<trkpt lat="50.768559" lon="15.060210"/>
+<trkpt lat="50.768661" lon="15.060210"/>
+<trkpt lat="50.769409" lon="15.060320"/>
+<trkpt lat="50.769390" lon="15.060340"/>
+<trkpt lat="50.769569" lon="15.060400"/>
+<trkpt lat="50.769878" lon="15.060460"/>
+<trkpt lat="50.769920" lon="15.060480"/>
+<trkpt lat="50.769958" lon="15.060530"/>
+<trkpt lat="50.769970" lon="15.060970"/>
+<trkpt lat="50.770000" lon="15.061140"/>
+<trkpt lat="50.770489" lon="15.062710"/>
+<trkpt lat="50.770531" lon="15.062930"/>
+<trkpt lat="50.770489" lon="15.062900"/>
+<trkpt lat="50.771660" lon="15.071030"/>
+<trkpt lat="50.771740" lon="15.071270"/>
+<trkpt lat="50.771832" lon="15.071810"/>
+<trkpt lat="50.772499" lon="15.076320"/>
+<trkpt lat="50.772499" lon="15.076470"/>
+<trkpt lat="50.772560" lon="15.076730"/>
+<trkpt lat="50.772629" lon="15.077170"/>
+<trkpt lat="50.772640" lon="15.077370"/>
+<trkpt lat="50.772621" lon="15.077560"/>
+<trkpt lat="50.772541" lon="15.077830"/>
+<trkpt lat="50.772331" lon="15.078420"/>
+<trkpt lat="50.772289" lon="15.078640"/>
+<trkpt lat="50.772240" lon="15.079240"/>
+<trkpt lat="50.772209" lon="15.079370"/>
+<trkpt lat="50.772129" lon="15.079450"/>
+<trkpt lat="50.771778" lon="15.079630"/>
+<trkpt lat="50.771629" lon="15.079760"/>
+<trkpt lat="50.771580" lon="15.079810"/>
+<trkpt lat="50.771500" lon="15.079940"/>
+<trkpt lat="50.771431" lon="15.080140"/>
+<trkpt lat="50.771420" lon="15.080340"/>
+<trkpt lat="50.771530" lon="15.081440"/>
+<trkpt lat="50.771519" lon="15.081720"/>
+<trkpt lat="50.771488" lon="15.081970"/>
+<trkpt lat="50.771149" lon="15.083530"/>
+<trkpt lat="50.771099" lon="15.083630"/>
+<trkpt lat="50.771019" lon="15.083700"/>
+<trkpt lat="50.770950" lon="15.083730"/>
+<trkpt lat="50.770691" lon="15.083730"/>
+<trkpt lat="50.770458" lon="15.083770"/>
+<trkpt lat="50.770359" lon="15.083820"/>
+<trkpt lat="50.770142" lon="15.083940"/>
+<trkpt lat="50.769958" lon="15.084170"/>
+<trkpt lat="50.768101" lon="15.087450"/>
+<trkpt lat="50.768009" lon="15.087570"/>
+<trkpt lat="50.768028" lon="15.087670"/>
+<trkpt lat="50.768242" lon="15.087850"/>
+<trkpt lat="50.768330" lon="15.087830"/>
+<trkpt lat="50.768379" lon="15.087680"/>
+<trkpt lat="50.768372" lon="15.087490"/>
+<trkpt lat="50.768311" lon="15.087350"/>
+<trkpt lat="50.768230" lon="15.087280"/>
+<trkpt lat="50.768181" lon="15.087280"/>
+<trkpt lat="50.768002" lon="15.087630"/>
+<trkpt lat="50.767429" lon="15.088570"/>
+<trkpt lat="50.767288" lon="15.088930"/>
+<trkpt lat="50.767231" lon="15.089140"/>
+<trkpt lat="50.767078" lon="15.089940"/>
+<trkpt lat="50.767029" lon="15.090420"/>
+<trkpt lat="50.767010" lon="15.090890"/>
+<trkpt lat="50.767071" lon="15.091340"/>
+<trkpt lat="50.767719" lon="15.093640"/>
+<trkpt lat="50.767761" lon="15.094050"/>
+<trkpt lat="50.767700" lon="15.094440"/>
+<trkpt lat="50.767368" lon="15.095810"/>
+<trkpt lat="50.767181" lon="15.096210"/>
+<trkpt lat="50.766960" lon="15.096520"/>
+<trkpt lat="50.766842" lon="15.096720"/>
+<trkpt lat="50.766178" lon="15.098040"/>
+<trkpt lat="50.766109" lon="15.098270"/>
+<trkpt lat="50.766060" lon="15.098520"/>
+<trkpt lat="50.766060" lon="15.098940"/>
+<trkpt lat="50.766041" lon="15.099270"/>
+<trkpt lat="50.766010" lon="15.099430"/>
+<trkpt lat="50.765659" lon="15.100250"/>
+<trkpt lat="50.765350" lon="15.100830"/>
+<trkpt lat="50.765228" lon="15.101020"/>
+<trkpt lat="50.765110" lon="15.101180"/>
+<trkpt lat="50.764301" lon="15.101880"/>
+<trkpt lat="50.762539" lon="15.103270"/>
+<trkpt lat="50.762291" lon="15.103530"/>
+<trkpt lat="50.762260" lon="15.103630"/>
+<trkpt lat="50.761959" lon="15.105520"/>
+<trkpt lat="50.761940" lon="15.106580"/>
+<trkpt lat="50.761978" lon="15.107360"/>
+<trkpt lat="50.761959" lon="15.107690"/>
+<trkpt lat="50.761589" lon="15.108920"/>
+<trkpt lat="50.761551" lon="15.109210"/>
+<trkpt lat="50.761490" lon="15.110140"/>
+<trkpt lat="50.761471" lon="15.110310"/>
+<trkpt lat="50.761459" lon="15.110310"/>
+<trkpt lat="50.761471" lon="15.110490"/>
+<trkpt lat="50.761452" lon="15.110780"/>
+<trkpt lat="50.761398" lon="15.111000"/>
+<trkpt lat="50.761318" lon="15.111210"/>
+<trkpt lat="50.761219" lon="15.111320"/>
+<trkpt lat="50.760891" lon="15.111580"/>
+<trkpt lat="50.760719" lon="15.111750"/>
+<trkpt lat="50.760639" lon="15.111920"/>
+<trkpt lat="50.760029" lon="15.113940"/>
+<trkpt lat="50.759869" lon="15.114390"/>
+<trkpt lat="50.759720" lon="15.114680"/>
+<trkpt lat="50.758598" lon="15.116450"/>
+<trkpt lat="50.758350" lon="15.116770"/>
+<trkpt lat="50.758228" lon="15.116880"/>
+</trkseg></trk>
+</gpx>

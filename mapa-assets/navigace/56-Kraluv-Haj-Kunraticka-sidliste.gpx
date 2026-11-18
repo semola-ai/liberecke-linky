@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 56: Králův Háj → Kunratická sídliště</name>
+<desc>Linka 56: Králův Háj → Kunratická sídliště. Trasa podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-18 až 2026-12-22. Zastávek 8, délka 3.5 km. Data: DPMLJ a.s., trasa může být zjednodušená – řiďte se dopravním značením.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/56"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.767273" lon="15.082769"><name>1. Králův Háj</name><desc>Linka 56, zastávka 1/8</desc><type>Zastávka</type></wpt>
+<wpt lat="50.766636" lon="15.079781"><name>2. U Vodárny</name><desc>Linka 56, zastávka 2/8</desc><type>Zastávka</type></wpt>
+<wpt lat="50.765743" lon="15.076520"><name>3. Školní</name><desc>Linka 56, zastávka 3/8</desc><type>Zastávka</type></wpt>
+<wpt lat="50.765900" lon="15.069656"><name>4. Vojtěšská</name><desc>Linka 56, zastávka 4/8</desc><type>Zastávka</type></wpt>
+<wpt lat="50.762878" lon="15.074696"><name>5. U Lomu</name><desc>Linka 56, zastávka 5/8</desc><type>Zastávka</type></wpt>
+<wpt lat="50.762493" lon="15.085653"><name>6. Ječná</name><desc>Linka 56, zastávka 6/8</desc><type>Zastávka</type></wpt>
+<wpt lat="50.760277" lon="15.091669"><name>7. Východní</name><desc>Linka 56, zastávka 7/8</desc><type>Zastávka</type></wpt>
+<wpt lat="50.760777" lon="15.095887"><name>8. Kunratická sídliště</name><desc>Linka 56, zastávka 8/8</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 56: Králův Háj → Kunratická sídliště</name><trkseg>
+<trkpt lat="50.767250" lon="15.083060"/>
+<trkpt lat="50.767281" lon="15.083020"/>
+<trkpt lat="50.767311" lon="15.082780"/>
+<trkpt lat="50.767319" lon="15.082130"/>
+<trkpt lat="50.767311" lon="15.081920"/>
+<trkpt lat="50.767231" lon="15.081410"/>
+<trkpt lat="50.766911" lon="15.080320"/>
+<trkpt lat="50.766571" lon="15.079600"/>
+<trkpt lat="50.766441" lon="15.079250"/>
+<trkpt lat="50.766048" lon="15.077800"/>
+<trkpt lat="50.765739" lon="15.076460"/>
+<trkpt lat="50.765759" lon="15.076330"/>
+<trkpt lat="50.765751" lon="15.076180"/>
+<trkpt lat="50.765739" lon="15.076180"/>
+<trkpt lat="50.765709" lon="15.076090"/>
+<trkpt lat="50.765678" lon="15.075890"/>
+<trkpt lat="50.765678" lon="15.075670"/>
+<trkpt lat="50.765720" lon="15.075130"/>
+<trkpt lat="50.765869" lon="15.073960"/>
+<trkpt lat="50.765919" lon="15.072650"/>
+<trkpt lat="50.765961" lon="15.070930"/>
+<trkpt lat="50.765930" lon="15.070510"/>
+<trkpt lat="50.765839" lon="15.070000"/>
+<trkpt lat="50.765850" lon="15.069880"/>
+<trkpt lat="50.765820" lon="15.069730"/>
+<trkpt lat="50.765831" lon="15.069730"/>
+<trkpt lat="50.765739" lon="15.069450"/>
+<trkpt lat="50.765598" lon="15.068630"/>
+<trkpt lat="50.765560" lon="15.068520"/>
+<trkpt lat="50.765518" lon="15.068520"/>
+<trkpt lat="50.765491" lon="15.068530"/>
+<trkpt lat="50.764992" lon="15.069810"/>
+<trkpt lat="50.764759" lon="15.070280"/>
+<trkpt lat="50.764118" lon="15.071400"/>
+<trkpt lat="50.763828" lon="15.071990"/>
+<trkpt lat="50.763351" lon="15.073390"/>
+<trkpt lat="50.763290" lon="15.073460"/>
+<trkpt lat="50.763000" lon="15.074400"/>
+<trkpt lat="50.762829" lon="15.074760"/>
+<trkpt lat="50.762501" lon="15.075320"/>
+<trkpt lat="50.762390" lon="15.075570"/>
+<trkpt lat="50.762379" lon="15.075640"/>
+<trkpt lat="50.762390" lon="15.075690"/>
+<trkpt lat="50.762531" lon="15.075880"/>
+<trkpt lat="50.762581" lon="15.075980"/>
+<trkpt lat="50.762779" lon="15.076230"/>
+<trkpt lat="50.762871" lon="15.076300"/>
+<trkpt lat="50.763062" lon="15.076400"/>
+<trkpt lat="50.763378" lon="15.076600"/>
+<trkpt lat="50.763512" lon="15.076700"/>
+<trkpt lat="50.764111" lon="15.077410"/>
+<trkpt lat="50.764290" lon="15.077740"/>
+<trkpt lat="50.764359" lon="15.077990"/>
+<trkpt lat="50.764400" lon="15.078230"/>
+<trkpt lat="50.764420" lon="15.078540"/>
+<trkpt lat="50.764408" lon="15.078660"/>
+<trkpt lat="50.764351" lon="15.078800"/>
+<trkpt lat="50.764301" lon="15.078850"/>
+<trkpt lat="50.764050" lon="15.078970"/>
+<trkpt lat="50.764000" lon="15.079010"/>
+<trkpt lat="50.763920" lon="15.079140"/>
+<trkpt lat="50.763748" lon="15.079690"/>
+<trkpt lat="50.763512" lon="15.080640"/>
+<trkpt lat="50.763420" lon="15.080910"/>
+<trkpt lat="50.762791" lon="15.082360"/>
+<trkpt lat="50.762661" lon="15.082790"/>
+<trkpt lat="50.762611" lon="15.083200"/>
+<trkpt lat="50.762550" lon="15.084640"/>
+<trkpt lat="50.762508" lon="15.084980"/>
+<trkpt lat="50.762531" lon="15.085470"/>
+<trkpt lat="50.762482" lon="15.085940"/>
+<trkpt lat="50.762428" lon="15.086270"/>
+<trkpt lat="50.761990" lon="15.087590"/>
+<trkpt lat="50.761799" lon="15.088040"/>
+<trkpt lat="50.761600" lon="15.088300"/>
+<trkpt lat="50.761311" lon="15.088610"/>
+<trkpt lat="50.761059" lon="15.088840"/>
+<trkpt lat="50.760910" lon="15.089010"/>
+<trkpt lat="50.760799" lon="15.089230"/>
+<trkpt lat="50.760738" lon="15.089390"/>
+<trkpt lat="50.760658" lon="15.089690"/>
+<trkpt lat="50.760342" lon="15.091210"/>
+<trkpt lat="50.760250" lon="15.091540"/>
+<trkpt lat="50.760239" lon="15.091800"/>
+<trkpt lat="50.760262" lon="15.091930"/>
+<trkpt lat="50.760201" lon="15.093120"/>
+<trkpt lat="50.760021" lon="15.094570"/>
+<trkpt lat="50.760029" lon="15.094750"/>
+<trkpt lat="50.760059" lon="15.094850"/>
+<trkpt lat="50.760120" lon="15.094880"/>
+<trkpt lat="50.760201" lon="15.094880"/>
+<trkpt lat="50.760368" lon="15.094920"/>
+<trkpt lat="50.760479" lon="15.094970"/>
+<trkpt lat="50.760609" lon="15.095170"/>
+<trkpt lat="50.760712" lon="15.095390"/>
+<trkpt lat="50.760738" lon="15.095520"/>
+<trkpt lat="50.760750" lon="15.095620"/>
+<trkpt lat="50.760731" lon="15.095720"/>
+<trkpt lat="50.760738" lon="15.095850"/>
+</trkseg></trk>
+</gpx>

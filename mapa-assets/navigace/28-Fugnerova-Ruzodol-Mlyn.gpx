@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Liberecké linky (data DPMLJ, GTFS)" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<name>Linka 28: Fügnerova → Růžodol Mlýn</name>
+<desc>Linka 28: Fügnerova → Růžodol Mlýn. Trasa podle jízdního řádu DPMLJ (GTFS), platnost 2026-11-21 až 2026-12-20. Zastávek 6, délka 3.5 km. Data: DPMLJ a.s., trasa může být zjednodušená – řiďte se dopravním značením.</desc>
+<link href="https://tomaskrupicka.cz/liberecke-linky/navigace/28"><text>Liberecké linky</text></link>
+</metadata>
+<wpt lat="50.765511" lon="15.057374"><name>1. Fügnerova</name><desc>Linka 28, zastávka 1/6</desc><type>Zastávka</type></wpt>
+<wpt lat="50.769348" lon="15.060575"><name>2. Šaldovo náměstí</name><desc>Linka 28, zastávka 2/6</desc><type>Zastávka</type></wpt>
+<wpt lat="50.772022" lon="15.056099"><name>3. Sokolská</name><desc>Linka 28, zastávka 3/6</desc><type>Zastávka</type></wpt>
+<wpt lat="50.774101" lon="15.044249"><name>4. Dožínková</name><desc>Linka 28, zastávka 4/6</desc><type>Zastávka</type></wpt>
+<wpt lat="50.774193" lon="15.039639"><name>5. Růžodol I</name><desc>Linka 28, zastávka 5/6</desc><type>Zastávka</type></wpt>
+<wpt lat="50.781387" lon="15.029479"><name>6. Růžodol Mlýn</name><desc>Linka 28, zastávka 6/6</desc><type>Zastávka</type></wpt>
+<trk><name>Linka 28: Fügnerova → Růžodol Mlýn</name><trkseg>
+<trkpt lat="50.765579" lon="15.057310"/>
+<trkpt lat="50.766060" lon="15.057880"/>
+<trkpt lat="50.766079" lon="15.057960"/>
+<trkpt lat="50.766090" lon="15.058070"/>
+<trkpt lat="50.766060" lon="15.058140"/>
+<trkpt lat="50.765919" lon="15.058200"/>
+<trkpt lat="50.765591" lon="15.058270"/>
+<trkpt lat="50.765450" lon="15.058350"/>
+<trkpt lat="50.765419" lon="15.058540"/>
+<trkpt lat="50.765560" lon="15.058990"/>
+<trkpt lat="50.765831" lon="15.059600"/>
+<trkpt lat="50.765991" lon="15.059770"/>
+<trkpt lat="50.766739" lon="15.060160"/>
+<trkpt lat="50.767090" lon="15.060310"/>
+<trkpt lat="50.767208" lon="15.060320"/>
+<trkpt lat="50.767799" lon="15.060170"/>
+<trkpt lat="50.768291" lon="15.060300"/>
+<trkpt lat="50.768398" lon="15.060270"/>
+<trkpt lat="50.768559" lon="15.060180"/>
+<trkpt lat="50.768688" lon="15.060190"/>
+<trkpt lat="50.769390" lon="15.060350"/>
+<trkpt lat="50.772079" lon="15.056080"/>
+<trkpt lat="50.774269" lon="15.043280"/>
+<trkpt lat="50.774261" lon="15.043190"/>
+<trkpt lat="50.774231" lon="15.043120"/>
+<trkpt lat="50.774029" lon="15.042830"/>
+<trkpt lat="50.773861" lon="15.042730"/>
+<trkpt lat="50.773800" lon="15.042720"/>
+<trkpt lat="50.773571" lon="15.042750"/>
+<trkpt lat="50.773380" lon="15.042740"/>
+<trkpt lat="50.773319" lon="15.042710"/>
+<trkpt lat="50.773239" lon="15.042620"/>
+<trkpt lat="50.773140" lon="15.042440"/>
+<trkpt lat="50.773060" lon="15.042180"/>
+<trkpt lat="50.773029" lon="15.041980"/>
+<trkpt lat="50.773029" lon="15.041680"/>
+<trkpt lat="50.773048" lon="15.041430"/>
+<trkpt lat="50.773109" lon="15.041130"/>
+<trkpt lat="50.773220" lon="15.040790"/>
+<trkpt lat="50.773300" lon="15.040590"/>
+<trkpt lat="50.773472" lon="15.040330"/>
+<trkpt lat="50.773869" lon="15.039900"/>
+<trkpt lat="50.774391" lon="15.039450"/>
+<trkpt lat="50.774780" lon="15.039070"/>
+<trkpt lat="50.775009" lon="15.038900"/>
+<trkpt lat="50.775150" lon="15.038730"/>
+<trkpt lat="50.775341" lon="15.038450"/>
+<trkpt lat="50.775471" lon="15.038220"/>
+<trkpt lat="50.776218" lon="15.037040"/>
+<trkpt lat="50.776241" lon="15.037060"/>
+<trkpt lat="50.776299" lon="15.037060"/>
+<trkpt lat="50.776360" lon="15.037020"/>
+<trkpt lat="50.776409" lon="15.036890"/>
+<trkpt lat="50.776402" lon="15.036780"/>
+<trkpt lat="50.776508" lon="15.036580"/>
+<trkpt lat="50.776520" lon="15.036480"/>
+<trkpt lat="50.777409" lon="15.035040"/>
+<trkpt lat="50.778641" lon="15.032910"/>
+<trkpt lat="50.779011" lon="15.032300"/>
+<trkpt lat="50.779129" lon="15.032140"/>
+<trkpt lat="50.779282" lon="15.031970"/>
+<trkpt lat="50.779800" lon="15.031480"/>
+<trkpt lat="50.780708" lon="15.030530"/>
+<trkpt lat="50.780979" lon="15.030180"/>
+<trkpt lat="50.781101" lon="15.029980"/>
+</trkseg></trk>
+</gpx>
