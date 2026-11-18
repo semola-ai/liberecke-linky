@@ -129,7 +129,7 @@ $lang['nav_titulek']      = 'Trasy autobusových linek do navigace (GPX) | Liber
 $lang['nav_popis']        = 'Všechny varianty tras autobusových linek MHD Liberec a Jablonec n. N. ke stažení jako GPX do navigace, denně aktualizované podle jízdního řádu (GTFS).';
 $lang['nav_nadpis']       = 'Trasy linek do navigace';
 $lang['nav_intro']        = 'Každá varianta trasy autobusové linky je ke stažení jako soubor GPX: skutečná trasa podle jízdního řádu a zastávky v pořadí. Soubory se automaticky obnovují podle aktuálních dat DPMLJ, odkaz na variantu se nemění. Zkrácené spoje jsou zahrnuté v delší variantě.';
-$lang['nav_navod']        = 'Jak na to: soubor GPX otevřete v telefonu v aplikaci OsmAnd a spusťte navigaci po trase. Mapy.com trasu umí jen zobrazit. Načtená trasa je v telefonu kopie: po změně varianty ji načtěte znovu.';
+$lang['nav_navod']        = 'Jak na to: soubor GPX otevřete v telefonu v aplikaci Mapy.com, trasa linky se zobrazí v mapě a jedním klepnutím na ni spustíte navigaci. Načtená trasa je v telefonu kopie: po změně varianty ji načtěte znovu.';
 $lang['nav_platnost']     = 'Data platná %s až %s.';
 $lang['nav_vyber']        = 'Vyberte linku';
 $lang['nav_zmeny']        = 'Poslední změny variant';
@@ -167,7 +167,17 @@ $lang['nav_navod_html'] = <<<'HTML'
 <h3>Jak soubor GPX použít</h3>
 <p>Soubor GPX obsahuje trasu varianty a zastávky v pořadí (jako body „1. Název“, „2. Název“…). Stáhnete ho tlačítkem <strong>Stáhnout GPX</strong> u varianty. Telefon ho uloží do Stažených souborů nebo rovnou nabídne aplikaci, ve které ho otevřít.</p>
 <details open>
-  <summary><strong>OsmAnd: navigace po trase</strong> (Android i iPhone, doporučeno)</summary>
+  <summary><strong>Mapy.com</strong> (Android i iPhone)</summary>
+  <ol>
+    <li>V aplikaci Mapy.com se přihlaste ke svému účtu, import trasy to vyžaduje.</li>
+    <li>Na této stránce klepněte u varianty na <strong>Stáhnout GPX</strong> a soubor otevřete v aplikaci Mapy.com. Pokud ho telefon jen uloží, otevřete ho ze Stažených souborů a zvolte Mapy.com, nebo v aplikaci: <em>Místa a trasy</em> (případně <em>Moje Mapy</em>) → <strong>Import GPX</strong>. Na počítači stačí soubor přetáhnout do mapy na mapy.com, v telefonu se pak trasa objeví pod stejným účtem.</li>
+    <li>Trasa linky se zobrazí v mapě i se zastávkami. Klepněte na ni a zvolte <strong>Navigovat</strong>.</li>
+    <li>Během jízdy kontrolujte, že navigace vede po zobrazené trase linky. Kde by ji aplikace vedla jinudy (průjezdy „mimo BUS“, buspruhy, otočky), řiďte se zobrazenou trasou linky.</li>
+    <li>Trasa zůstane uložená v <em>Moje Mapy</em>. Po změně varianty ji tam smažte a importujte znovu.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>OsmAnd: vedení přesně po trase</strong> (Android i iPhone, alternativa)</summary>
   <ol>
     <li>Nainstalujte OsmAnd (Google Play / App Store) a v aplikaci si stáhněte offline mapu Libereckého kraje.</li>
     <li>Na této stránce klepněte na <strong>Stáhnout GPX</strong> a soubor otevřete v OsmAnd. Pokud ho telefon jen uloží, otevřete ho ze Stažených souborů a zvolte OsmAnd, nebo v OsmAnd: <em>Menu → Moje místa → Stopy → Importovat</em>.</li>
@@ -175,14 +185,6 @@ $lang['nav_navod_html'] = <<<'HTML'
     <li>V nastavení sledování nechte volbu <strong>Připojit k silnicím</strong> vypnutou. Jinak by aplikace trasu přepočítala jako pro auto a nemusela by projet buspruhem nebo průjezdem „mimo BUS“.</li>
     <li>Zvolte, jestli vás má aplikace navést na začátek trasy, nebo na nejbližší bod (hodí se, když vyjíždíte z vozovny nebo nastupujete do trasy jinde).</li>
     <li>Spusťte navigaci. Hlasové pokyny se řídí tvarem trasy, u trasy bez křižovatkových údajů mohou ohlašovat i běžné zatáčky.</li>
-  </ol>
-</details>
-<details>
-  <summary><strong>Mapy.com: jen zobrazení trasy</strong></summary>
-  <ol>
-    <li>Import vyžaduje přihlášení k účtu Mapy.com.</li>
-    <li>V aplikaci otevřete <em>Místa a trasy</em> (nebo <em>Moje Mapy</em>) a zvolte <strong>Import GPX</strong>, případně soubor otevřete ze Stažených souborů v aplikaci Mapy.com. Na počítači lze soubor na mapy.com přetáhnout do mapy, trasa se pak objeví i v telefonu pod stejným účtem.</li>
-    <li>Trasa a zastávky se ukážou v mapě jako vodítko. Hlasovou navigaci po importované trase Mapy.com nenabízí; když necháte Mapy.com naplánovat trasu samy, povedou vás jako auto, ne po trase linky.</li>
   </ol>
 </details>
 <details>
