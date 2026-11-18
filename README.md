@@ -68,6 +68,7 @@ Všechny varianty tras autobusových linek ke stažení jako **GPX** do navigace
 
 - Stránka **`navigace.php`**: `…/navigace` (přehled linek a poslední změny), `…/navigace/<linka>` (varianty linky, QR kód pro otevření v telefonu), `…/navigace/<varianta>.gpx` (stažení; zrušená varianta vrátí hlášku s odkazem na aktuální varianty). Rewrite v `.htaccess`.
 - Generuje **`tools/navigace.py`** (volá ho `build_data.py`): varianta = sled zastávek; zkrácené spoje (souvislá část delší varianty) se do ní započítají. Výstup `mapa-assets/navigace/*.gpx`, `mapa-assets/data/navigace.json` (index) a `navigace-zmeny.json` (záznam nových, změněných a zrušených variant).
+- U každé varianty je i tlačítko **Navigovat v Mapy.com**: odkaz otevře trasu autem v aplikaci Mapy.com přes až 15 klíčových bodů trasy (import GPX vytvoří v Mapy.com jen pěší trasu bez navigace).
 - Adresa varianty je stálá: id se pro stejný sled zastávek převezme z předchozího `navigace.json`.
 
 > **Licence dat:** stránka DPMLJ neuvádí explicitní licenci; v mapě je atribuce „Data: DPMLJ a.s.“. Pro veřejné publikování doporučeno podmínky použití u DPMLJ potvrdit. Podklad OSM vyžaduje atribuci „© OpenStreetMap“ (v mapě je).

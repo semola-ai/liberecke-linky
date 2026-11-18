@@ -23,6 +23,7 @@ from xml.sax.saxutils import escape, quoteattr
 
 SITE_URL = "https://tomaskrupicka.cz/liberecke-linky"
 NAV_SIMPLIFY_TOL = 0.00001      # ~1 m – navigace chce trasu co nejpřesnější
+MAPY_WAYPOINTS = 15             # limit průjezdních bodů v odkazu Mapy.com (mapy.com/fnc/v1/route)
 LIST_TIMES_MAX = 8              # do kolika spojů za typ dne vypsat všechny časy
 REMOVED_KEEP_DAYS = 400         # jak dlouho držet zrušené varianty (hláška místo 404)
 CHANGES_KEEP = 300              # kolik posledních záznamů změn držet
@@ -76,6 +77,51 @@ def prague_today():
 
 
 # ---------------------------------------------------------------- GPX
+def key_points(pts, n):
+    """Douglas-Peucker podle důležitosti: k začátku a konci postupně přidává bod
+    nejvzdálenější od dosavadní lomené čáry, dokud nemá n vnitřních bodů. Body tak
+    padnou do míst, kde se trasa nejvíc láme (odbočky, smyčky), a plánovač je
+    mezi nimi vede po linii linky. Vrací indexy do pts."""
+    def perp(p, a, b):
+        c = math.cos(math.radians(a[1]))
+        bx, by = (b[0] - a[0]) * c, b[1] - a[1]
+        px, py = (p[0] - a[0]) * c, p[1] - a[1]
+        L = bx * bx + by * by
+        t = 0.0 if L == 0 else max(0.0, min(1.0, (px * bx + py * by) / L))
+        return math.hypot(px - t * bx, py - t * by)
+    keep = [0, len(pts) - 1]
+    # pro každý úsek si pamatuj nejvzdálenější bod (d, idx, s, e)
+    def worst(s, e):
+        best = (0.0, None)
+        for i in range(s + 1, e):
+            d = perp(pts[i], pts[s], pts[e])
+            if d > best[0]:
+                best = (d, i)
+        return best
+    segs = {(0, len(pts) - 1): worst(0, len(pts) - 1)}
+    while len(keep) - 2 < n:
+        (s, e), (d, i) = max(segs.items(), key=lambda kv: kv[1][0])
+        if i is None or d <= 0:
+            break
+        del segs[(s, e)]
+        keep.append(i)
+        segs[(s, i)] = worst(s, i)
+        segs[(i, e)] = worst(i, e)
+    return sorted(set(keep))
+
+
+def mapy_url(pts):
+    """Odkaz, který v aplikaci (nebo na webu) Mapy.com otevře plánování trasy autem
+    přes klíčové body trasy varianty. pts = [(lon, lat)]."""
+    idx = key_points(pts, MAPY_WAYPOINTS)
+    f = lambda p: "%.6f,%.6f" % (p[0], p[1])
+    url = "https://mapy.com/fnc/v1/route?start=%s&end=%s&routeType=car_fast_traffic" % (
+        f(pts[idx[0]]), f(pts[idx[-1]]))
+    if len(idx) > 2:
+        url += "&waypoints=" + ";".join(f(pts[i]) for i in idx[1:-1])
+    return url + "&navigate=true"
+
+
 def gpx_doc(name, desc, link, tracks, waypoints):
     """tracks = [(název, [(lon,lat), ...])], waypoints = [(lon, lat, název, popis)]"""
     o = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -270,7 +316,7 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
                 "via": stop_name(via) if via else "", "without": stop_name(bez) if bez else "",
                 "stops": [{"id": x, "name": stop_name(x)} for x in s],
                 "km": round(length, 1), "trips": len(tlist), "short_trips": short_of.get(s, 0),
-                "jizdy": jizdy, "geom": geom_hash,
+                "jizdy": jizdy, "geom": geom_hash, "mapy": mapy_url(pts),
             }
             if approx:
                 rec["approximate"] = True

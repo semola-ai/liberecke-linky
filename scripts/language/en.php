@@ -129,7 +129,7 @@ $lang['nav_titulek']      = 'Bus route variants for navigation apps (GPX) | Libe
 $lang['nav_popis']        = 'All route variants of Liberec and Jablonec bus lines as GPX files for navigation apps, updated daily from the GTFS timetable.';
 $lang['nav_nadpis']       = 'Bus routes for navigation apps';
 $lang['nav_intro']        = 'Every route variant of each bus line can be downloaded as a GPX file: the actual path from the timetable and the stops in order. Files are refreshed automatically from current DPMLJ data and the link to a variant stays the same. Short-turn trips are covered by the longer variant.';
-$lang['nav_navod']        = 'How to use: open the GPX file on your phone in Mapy.com, the line\'s path appears on the map and one tap on it starts navigation. The imported route is a copy on your phone: re-import it after the variant changes.';
+$lang['nav_navod']        = 'How to use: on your phone tap “Navigate in Mapy.com” next to a variant. The car route opens in the Mapy.com app and the green button starts navigation. The GPX file shows the exact path and is for the OsmAnd app.';
 $lang['nav_platnost']     = 'Data valid %s to %s.';
 $lang['nav_vyber']        = 'Choose a line';
 $lang['nav_zmeny']        = 'Recent variant changes';
@@ -165,15 +165,21 @@ $lang['nav_navod_odkaz'] = 'Step-by-step guide';
 // návod k GPX – HTML (statický text, vypisuje se bez escapování)
 $lang['nav_navod_html'] = <<<'HTML'
 <h3>How to use the GPX file</h3>
-<p>The GPX file contains the variant's path and its stops in order (as points “1. Name”, “2. Name”…). Download it with the <strong>Download GPX</strong> button of a variant. Your phone saves it to Downloads or offers an app to open it with.</p>
+<p>Each variant offers two options: the <strong>Navigate in Mapy.com</strong> button opens the car route directly in the Mapy.com app, and the <strong>GPX</strong> file contains the exact path of the line and its stops in order (for viewing and for OsmAnd).</p>
 <details open>
-  <summary><strong>Mapy.com</strong> (Android and iPhone)</summary>
+  <summary><strong>Mapy.com: navigation</strong> (Android and iPhone, recommended)</summary>
   <ol>
-    <li>Sign in to your account in the Mapy.com app; importing a route requires it.</li>
-    <li>Tap <strong>Download GPX</strong> next to a variant on this page and open the file in Mapy.com. If the phone only saves it, open it from Downloads and choose Mapy.com, or in the app: <em>Places and routes</em> (or <em>My Maps</em>) → <strong>Import GPX</strong>. On a computer, drag the file onto the map at mapy.com; the route then appears on your phone under the same account.</li>
-    <li>The line's path is shown on the map together with its stops. Tap it and choose <strong>Navigate</strong>.</li>
-    <li>While driving, check that the navigation follows the displayed path of the line. Where the app would route you differently (bus-only passages, bus lanes, turning loops), follow the displayed path.</li>
-    <li>The route stays saved in <em>My Maps</em>. After the variant changes, delete it there and import it again.</li>
+    <li>On your phone, tap <strong>Navigate in Mapy.com</strong> next to a variant on this page. The Mapy.com app opens with a planned car route (without the app, the mapy.com website opens).</li>
+    <li>Check that car is selected and start navigation with the green arrow button.</li>
+    <li>You can save the route to <em>My Maps</em> (or a shared folder) for next time. A saved route opens directly as a car route with navigation. After the variant changes, save it again from the link on this page and delete the old one.</li>
+    <li>Mapy.com plans the car route via at most 15 waypoints placed where the line's path bends. Between them it calculates the way itself, so where cars are not allowed (bus-only passages, bus lanes, turning loops) it may route differently. Follow the line's path there; you can display it from the GPX file for comparison.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>Mapy.com: showing the exact path from the GPX file</strong></summary>
+  <ol>
+    <li>Tap <strong>Download GPX</strong> and open the file in Mapy.com (or <em>Places and routes</em> → <strong>Import GPX</strong>). Importing requires signing in.</li>
+    <li>The exact path is saved as a walking “path” and each stop as a separate point. Mapy.com offers no car navigation along it; it serves as a guide on the map.</li>
   </ol>
 </details>
 <details>
@@ -199,3 +205,4 @@ $lang['nav_navod_html'] = <<<'HTML'
   </ul>
 </details>
 HTML;
+$lang['nav_mapy_btn'] = 'Navigate in Mapy.com';

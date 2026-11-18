@@ -29,6 +29,9 @@
 .nav-days { margin: 0 0 8px; padding-left: 18px; font-size: 14px; }
 .nav-btn { display: inline-block; padding: 9px 16px; border-radius: 5px; background: #00a186; color: #fff; text-decoration: none; font-weight: bold; }
 .nav-btn:hover { background: #008a73; }
+.nav-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.nav-btn-sec { background: #fff; color: #23475f; border: 1px solid #23475f; }
+.nav-btn-sec:hover { background: #eef4f8; }
 .nav-btn-alt { background: #23475f; }
 .nav-btn-alt:hover { background: #1a3547; }
 .nav-variant details summary { cursor: pointer; color: #23475f; font-size: 14px; }

@@ -129,7 +129,7 @@ $lang['nav_titulek']      = 'Trasy autobusových linek do navigace (GPX) | Liber
 $lang['nav_popis']        = 'Všechny varianty tras autobusových linek MHD Liberec a Jablonec n. N. ke stažení jako GPX do navigace, denně aktualizované podle jízdního řádu (GTFS).';
 $lang['nav_nadpis']       = 'Trasy linek do navigace';
 $lang['nav_intro']        = 'Každá varianta trasy autobusové linky je ke stažení jako soubor GPX: skutečná trasa podle jízdního řádu a zastávky v pořadí. Soubory se automaticky obnovují podle aktuálních dat DPMLJ, odkaz na variantu se nemění. Zkrácené spoje jsou zahrnuté v delší variantě.';
-$lang['nav_navod']        = 'Jak na to: soubor GPX otevřete v telefonu v aplikaci Mapy.com, trasa linky se zobrazí v mapě a jedním klepnutím na ni spustíte navigaci. Načtená trasa je v telefonu kopie: po změně varianty ji načtěte znovu.';
+$lang['nav_navod']        = 'Jak na to: u varianty klepněte v telefonu na „Navigovat v Mapy.com“. Trasa autem se otevře v aplikaci Mapy.com a navigaci spustíte zeleným tlačítkem. Soubor GPX slouží k zobrazení přesné trasy a pro aplikaci OsmAnd.';
 $lang['nav_platnost']     = 'Data platná %s až %s.';
 $lang['nav_vyber']        = 'Vyberte linku';
 $lang['nav_zmeny']        = 'Poslední změny variant';
@@ -165,15 +165,21 @@ $lang['nav_navod_odkaz'] = 'Podrobný návod';
 // návod k GPX – HTML (statický text, vypisuje se bez escapování)
 $lang['nav_navod_html'] = <<<'HTML'
 <h3>Jak soubor GPX použít</h3>
-<p>Soubor GPX obsahuje trasu varianty a zastávky v pořadí (jako body „1. Název“, „2. Název“…). Stáhnete ho tlačítkem <strong>Stáhnout GPX</strong> u varianty. Telefon ho uloží do Stažených souborů nebo rovnou nabídne aplikaci, ve které ho otevřít.</p>
+<p>U každé varianty jsou dvě možnosti: tlačítko <strong>Navigovat v Mapy.com</strong> otevře trasu autem rovnou v aplikaci Mapy.com, soubor <strong>GPX</strong> obsahuje přesnou trasu linky a zastávky v pořadí (pro zobrazení a pro OsmAnd).</p>
 <details open>
-  <summary><strong>Mapy.com</strong> (Android i iPhone)</summary>
+  <summary><strong>Mapy.com: navigace</strong> (Android i iPhone, doporučeno)</summary>
   <ol>
-    <li>V aplikaci Mapy.com se přihlaste ke svému účtu, import trasy to vyžaduje.</li>
-    <li>Na této stránce klepněte u varianty na <strong>Stáhnout GPX</strong> a soubor otevřete v aplikaci Mapy.com. Pokud ho telefon jen uloží, otevřete ho ze Stažených souborů a zvolte Mapy.com, nebo v aplikaci: <em>Místa a trasy</em> (případně <em>Moje Mapy</em>) → <strong>Import GPX</strong>. Na počítači stačí soubor přetáhnout do mapy na mapy.com, v telefonu se pak trasa objeví pod stejným účtem.</li>
-    <li>Trasa linky se zobrazí v mapě i se zastávkami. Klepněte na ni a zvolte <strong>Navigovat</strong>.</li>
-    <li>Během jízdy kontrolujte, že navigace vede po zobrazené trase linky. Kde by ji aplikace vedla jinudy (průjezdy „mimo BUS“, buspruhy, otočky), řiďte se zobrazenou trasou linky.</li>
-    <li>Trasa zůstane uložená v <em>Moje Mapy</em>. Po změně varianty ji tam smažte a importujte znovu.</li>
+    <li>Na této stránce v telefonu klepněte u varianty na <strong>Navigovat v Mapy.com</strong>. Otevře se aplikace Mapy.com s naplánovanou trasou autem (bez aplikace se otevře web mapy.com).</li>
+    <li>Zkontrolujte, že je zvolené auto, a spusťte navigaci zeleným tlačítkem se šipkou.</li>
+    <li>Pro příště si trasu můžete uložit do <em>Moje Mapy</em> (případně do sdílené složky). Uložená trasa se otevírá rovnou jako trasa autem s navigací. Po změně varianty ji uložte znovu z odkazu na této stránce a starou smažte.</li>
+    <li>Mapy.com vedou trasu autem přes nejvýš 15 průjezdních bodů, vybraných v místech, kde se trasa linky láme. Mezi nimi si cestu dopočítají samy, a tak tam, kam auto nesmí (průjezdy „mimo BUS“, buspruhy, otočky), mohou vést jinudy. Tam se řiďte trasou linky. Pro srovnání si ji můžete zobrazit ze souboru GPX.</li>
+  </ol>
+</details>
+<details>
+  <summary><strong>Mapy.com: zobrazení přesné trasy ze souboru GPX</strong></summary>
+  <ol>
+    <li>Klepněte na <strong>Stáhnout GPX</strong> a soubor otevřete v Mapy.com (nebo <em>Místa a trasy</em> → <strong>Import GPX</strong>). Import vyžaduje přihlášení.</li>
+    <li>Uloží se přesná trasa linky jako „Cesta“ (s ikonou chodce) a každá zastávka jako samostatný bod. Navigaci autem po ní Mapy.com nenabízí, slouží jako vodítko v mapě.</li>
   </ol>
 </details>
 <details>
@@ -199,3 +205,4 @@ $lang['nav_navod_html'] = <<<'HTML'
   </ul>
 </details>
 HTML;
+$lang['nav_mapy_btn'] = 'Navigovat v Mapy.com';

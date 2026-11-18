@@ -195,7 +195,10 @@ usort($sortedLines, static function ($a, $b) {
         <?php if (!empty($v['valid_to'])): ?><li><?= $esc(sprintf($t('nav_jen_do'), $isoToCz($ymdToIso($v['valid_to'])))) ?></li><?php endif; ?>
       </ul>
       <?php if (!empty($v['approximate'])): ?><p class="nav-warn"><?= $esc($t('nav_priblizna')) ?></p><?php endif; ?>
-      <p><a class="nav-btn" href="<?= $esc($asset('navigace/' . $v['id'] . '.gpx')) ?>" download><?= $esc($t('nav_stahnout', 'Stáhnout GPX')) ?></a></p>
+      <p class="nav-btns">
+        <?php if (!empty($v['mapy'])): ?><a class="nav-btn" href="<?= $esc($v['mapy']) ?>" target="_blank" rel="noopener"><?= $esc($t('nav_mapy_btn', 'Navigovat v Mapy.com')) ?></a><?php endif; ?>
+        <a class="nav-btn nav-btn-sec" href="<?= $esc($asset('navigace/' . $v['id'] . '.gpx')) ?>" download><?= $esc($t('nav_stahnout', 'Stáhnout GPX')) ?></a>
+      </p>
       <details>
         <summary><?= $esc($t('nav_zastavky', 'Zastávky')) ?></summary>
         <ol class="nav-stops">
