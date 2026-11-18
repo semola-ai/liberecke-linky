@@ -30,7 +30,6 @@ from xml.sax.saxutils import escape, quoteattr
 
 SITE_URL = "https://tomaskrupicka.cz/liberecke-linky"
 NAV_SIMPLIFY_TOL = 0.00001      # ~1 m – navigace chce trasu co nejpřesnější
-NAV_FILL_MIN = 30.0             # m – úsek s menším rizikem už body z trasy nedoplňuje
 NAV_LONG_W = 0.06               # váha délky úseku bez bodu proti odchylce trasy (1 km ~ 60 m)
 MAPY_WAYPOINTS = 15             # limit průjezdních bodů v odkazu Mapy.com (mapy.com/fnc/v1/route)
 LIST_TIMES_MAX = 8              # do kolika spojů za typ dne vypsat všechny časy
@@ -114,7 +113,9 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
     kudy autobus opravdu jede. Má-li varianta víc zastávek než n, postupně se
     vyřazují ty, bez kterých je trasa mezi sousedními body nejméně delší než
     přímá vzdálenost (zajížďky do sídlišť a smyčky zůstanou) a úsek se nejméně
-    prodlouží (dlouhý úsek bez bodu láká plánovač na souběžnou rychlostní silnici). Vrací [(lon, lat)] včetně začátku a konce."""
+    prodlouží (dlouhý úsek bez bodu láká plánovač na souběžnou rychlostní silnici).
+    Body z trasy mimo zastávky se nepřidávají – u expresních spojů s pár
+    zastávkami plánovači spíš škodily (ověřeno na lince 500, 2026-11-18). Vrací [(lon, lat)] včetně začátku a konce."""
     if len(pts) < 2:
         return list(pts)
     xy = _xy(list(pts) + list(stops) + list(pins))
@@ -166,7 +167,9 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
             anchor_of[k] = cur
         cur = prev
 
-    cand = {i for i in anchor_of if i is not None and 50 < cum[i] < cum[last] - 50}
+    # první a poslední zastávka = start a cíl odkazu, mezi průjezdní body nepatří
+    inner = [i for i in anchor_of[1:-1] if i is not None]
+    cand = {i for i in inner if 50 < cum[i] < cum[last] - 50}
 
     # ručně vynucené body
     forced = set()
@@ -178,7 +181,8 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
     names = [str(x).strip().lower() for x in stop_names]
     must = {str(x).strip().lower() for x in required}
     for k, nm in enumerate(names[:len(anchor_of)]):          # povinné zastávky
-        if nm in must and anchor_of[k] is not None and 0 < anchor_of[k] < last:
+        if 0 < k < len(anchor_of) - 1 and nm in must and anchor_of[k] is not None \
+                and 50 < cum[anchor_of[k]] < cum[last] - 50:
             forced.add(anchor_of[k])
     for k in range(min(len(names), len(anchor_of)) - 1):
         if frozenset((names[k], names[k + 1])) in pairs:
@@ -211,26 +215,6 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
                 break
         del keep[bk]
 
-    # málo zastávek (expresní spoje, dlouhé úseky bez zastávky): zbylé body doplnit
-    # z trasy – do nejrizikovějšího úseku, kde trasa nejvíc uhýbá, nebo do půlky
-    def split(a, b):
-        dm, im = 0.0, None
-        for i in range(a + 1, b):
-            d = _perp_m(P[i], P[a], P[b])
-            if d > dm:
-                dm, im = d, i
-        if im is not None and dm >= (cum[b] - cum[a]) * NAV_LONG_W:
-            return dm, im
-        if b - a > 1:
-            mid = (cum[a] + cum[b]) / 2
-            return (cum[b] - cum[a]) * NAV_LONG_W, min(range(a + 1, b), key=lambda i: abs(cum[i] - mid))
-        return 0.0, None
-    while len(keep) - 2 < n:
-        segs = [(split(a, b), a, b) for a, b in zip(keep, keep[1:])]
-        (c, i), a, b = max(segs, key=lambda t: t[0][0])
-        if i is None or c < NAV_FILL_MIN:
-            break
-        keep = sorted(keep + [i])
     return [pts[i] for i in keep]
 
 
