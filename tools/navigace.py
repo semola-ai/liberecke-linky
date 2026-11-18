@@ -14,6 +14,8 @@ Výstup:
   mapa-assets/data/navigace-zmeny.json    záznam změn variant (nová/změněná/zrušená)
 Čte (ručně udržovaný, nepovinný):
   mapa-assets/data/navigace-body.json     ruční opravy odkazů do Mapy.com tam, kde plánovač uhýbá:
+                                          {"zastavka": "Nádraží", "pozn": "…"} = povinná zastávka,
+                                          z odkazu se nevyřadí (u všech linek, které jí jedou),
                                           {"mezi": ["Viadukt", "Nádraží"], "pozn": "…"} = bod v půlce
                                           trasy mezi dvěma po sobě jdoucími zastávkami (oba směry),
                                           {"lat": …, "lon": …, "pozn": "…"} = bod, kterým trasa vede (do 30 m)
@@ -99,10 +101,11 @@ def _perp_m(p, a, b):
     return math.hypot(px - t * bx, py - t * by)
 
 
-def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), between=()):
+def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), between=(), required=()):
     """Vybere nejvýš n průjezdních bodů pro plánovač Mapy.com tak, aby jeho trasa
     autem kopírovala trasu linky. pts = trasa [(lon,lat)], stops = zastávky v pořadí
-    [(lon,lat)], stop_names = jejich názvy, pins = ručně zadané body (vynutí se,
+    [(lon,lat)], stop_names = jejich názvy, required = názvy povinných zastávek
+    (nevyřazují se), pins = ručně zadané body (vynutí se,
     když jimi trasa vede), between = dvojice názvů zastávek (jede-li jimi varianta
     po sobě, v libovolném pořadí, vynutí se bod v půlce trasy mezi nimi).
 
@@ -173,6 +176,10 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
             forced.add(i)
     pairs = {frozenset((x.strip().lower(), y.strip().lower())) for x, y in between}
     names = [str(x).strip().lower() for x in stop_names]
+    must = {str(x).strip().lower() for x in required}
+    for k, nm in enumerate(names[:len(anchor_of)]):          # povinné zastávky
+        if nm in must and anchor_of[k] is not None and 0 < anchor_of[k] < last:
+            forced.add(anchor_of[k])
     for k in range(min(len(names), len(anchor_of)) - 1):
         if frozenset((names[k], names[k + 1])) in pairs:
             x, y = anchor_of[k], anchor_of[k + 1]
@@ -193,14 +200,15 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
 
     while len(keep) - 2 > n:
         best, bk = None, None
-        for k in range(1, len(keep) - 1):
-            if keep[k] in forced:
-                continue
-            c = cost(keep[k - 1], keep[k + 1])
-            if best is None or c < best:
-                best, bk = c, k
-        if bk is None:          # zbyly jen vynucené body
-            break
+        for only_forced in (False, True):    # vynucené body až když nic jiného nezbývá
+            for k in range(1, len(keep) - 1):
+                if (keep[k] in forced) != only_forced:
+                    continue
+                c = cost(keep[k - 1], keep[k + 1])
+                if best is None or c < best:
+                    best, bk = c, k
+            if bk is not None:
+                break
         del keep[bk]
 
     # málo zastávek (expresní spoje, dlouhé úseky bez zastávky): zbylé body doplnit
@@ -226,10 +234,10 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
     return [pts[i] for i in keep]
 
 
-def mapy_url(pts, stops=(), pins=(), stop_names=(), between=()):
+def mapy_url(pts, stops=(), pins=(), stop_names=(), between=(), required=()):
     """Odkaz, který v aplikaci (nebo na webu) Mapy.com otevře plánování trasy autem
     přes průjezdní body vybrané nav_waypoints(). pts/stops = [(lon, lat)]."""
-    wp = nav_waypoints(pts, stops, pins, stop_names=stop_names, between=between)
+    wp = nav_waypoints(pts, stops, pins, stop_names=stop_names, between=between, required=required)
     f = lambda p: "%.6f,%.6f" % (p[0], p[1])
     url = "https://mapy.com/fnc/v1/route?start=%s&end=%s&routeType=car_fast_traffic" % (f(wp[0]), f(wp[-1]))
     if len(wp) > 2:
@@ -310,11 +318,13 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
     except (OSError, ValueError):
         changes = []
     # ručně vynucené průjezdní body pro Mapy.com (oprava míst, kde plánovač uhýbá)
-    pins, between = [], []
+    pins, between, required = [], [], []
     try:
         for b in json.load(open(os.path.join(out_data, "navigace-body.json"), encoding="utf-8")):
             if isinstance(b, dict) and isinstance(b.get("mezi"), list) and len(b["mezi"]) == 2:
                 between.append((str(b["mezi"][0]), str(b["mezi"][1])))
+            elif isinstance(b, dict) and b.get("zastavka"):
+                required.append(str(b["zastavka"]))
             elif isinstance(b, dict) and "lat" in b and "lon" in b:
                 pins.append((float(b["lon"]), float(b["lat"])))
     except (OSError, ValueError, TypeError):
@@ -442,7 +452,7 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
                 "stops": [{"id": x, "name": stop_name(x)} for x in s],
                 "km": round(length, 1), "trips": len(tlist), "short_trips": short_of.get(s, 0),
                 "jizdy": jizdy, "geom": geom_hash, "mapy": mapy_url(pts, [stop_ll(x) for x in s if stop_ll(x)], pins,
-                                 [stop_name(x) for x in s if stop_ll(x)], between),
+                                 [stop_name(x) for x in s if stop_ll(x)], between, required),
             }
             if approx:
                 rec["approximate"] = True
