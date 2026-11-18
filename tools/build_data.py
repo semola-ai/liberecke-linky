@@ -4,7 +4,8 @@
 Build static data for the "Liberecké linky – mapa" page from the GTFS feed.
 
 Input : <repo>/gtfs/*.txt  (unzipped gtfs.zip from http://www.dpmlj.cz/gtfs.zip)
-Output: <repo>/mapa-assets/data/{stops.json, routes.json, shapes.geojson, meta.json}
+Output: <repo>/mapa-assets/data/{stops.json, routes.json, shapes.geojson, meta.json, navigace.json, …}
+        <repo>/mapa-assets/navigace/*.gpx  (varianty autobusových linek, viz tools/navigace.py)
 
 Re-run after every monthly GTFS update (from the repo root):
     curl -sL -o gtfs.zip http://www.dpmlj.cz/gtfs.zip
@@ -14,6 +15,9 @@ Then review the regenerated mapa-assets/data/*.json and commit them.
 (gtfs/ and gtfs.zip are gitignored – only the generated JSON is deployed.)
 """
 import csv, json, os, collections, colorsys, io, sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import navigace  # noqa: E402  (varianty tras pro navigace řidičů, GPX)
 
 # UTF-8 stdout – jinak by výpis názvů linek se znaky mimo ASCII (např. „♿BUS")
 # spadl na Windows konzoli (cp1250).
@@ -25,6 +29,7 @@ except Exception:
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GTFS = os.path.join(ROOT, "gtfs")
 OUT = os.path.join(ROOT, "mapa-assets", "data")
+OUT_GPX = os.path.join(ROOT, "mapa-assets", "navigace")
 COORD_DP_TOLERANCE = 0.00004   # ~4 m, Douglas-Peucker simplification
 COORD_DECIMALS = 5             # ~1.1 m precision
 
@@ -647,6 +652,16 @@ def main():
     with open(os.path.join(OUT, "legacy-shapes.json"), "w", encoding="utf-8") as fh:
         json.dump(legacy_shapes, fh, ensure_ascii=False, separators=(",", ":"))
 
+    # ---- navigace (varianty autobusových linek jako GPX) -----------------
+    nav_seq = collections.defaultdict(list)
+    for st in stop_times:
+        nav_seq[st["trip_id"]].append((int(st["stop_sequence"]), st["stop_id"],
+                                       parse_hms(st.get("departure_time") or st.get("arrival_time"))))
+    for tid in nav_seq:
+        nav_seq[tid].sort()
+    nav = navigace.build_navigation(OUT, OUT_GPX, routes, trips, nav_seq, station_of, stations,
+                                    pts_by_shape, calendar, feed, simplify)
+
     # ---- meta.json ----------------------------------------------------
     meta = {
         "agency": "Dopravní podnik měst Liberce a Jablonce nad Nisou, a.s.",
@@ -655,7 +670,8 @@ def main():
         "version": feed.get("feed_version", ""),
         "source": "http://www.dpmlj.cz/gtfs.zip",
         "counts": {"routes": len(routes_out), "stops": len(stops_out),
-                   "shapes_features": len(features), "trips": len(timetable["trips"])},
+                   "shapes_features": len(features), "trips": len(timetable["trips"]),
+                   "nav_variants": nav["variants"]},
     }
     with open(os.path.join(OUT, "meta.json"), "w", encoding="utf-8") as fh:
         json.dump(meta, fh, ensure_ascii=False, indent=2)
@@ -671,6 +687,8 @@ def main():
     tt = json.load(open(os.path.join(OUT, "timetable.json"), encoding="utf-8"))
     print(f"  timetable.json {kb('timetable.json'):>5} kB  ({len(tt['trips'])} spojů, "
           f"{len(tt['services'])} služeb)")
+    print(f"  navigace       {nav['variants']} variant u {nav['lines']} linek, "
+          f"{nav['changes']} změn, {nav['removed']} zrušených drženo")
     print(f"  meta.json      platnost {meta['valid_from']}-{meta['valid_to']}")
 
 

@@ -72,7 +72,14 @@ $jsLang = [
     'noDepartures' => $lang['mapa_odjezdy_zadne']  ?? 'Odsud teď nic nejede.',
     'noTimetable' => $lang['mapa_jr_nedostupny']   ?? 'Jízdní řád pro dnešek není k dispozici.',
     'tripSchedule' => $lang['mapa_jr_spoje']       ?? 'Jízdní řád spoje',
+    'navLink'     => $lang['nav_mapa_odkaz']       ?? 'Trasa do navigace (GPX)',
 ];
+
+// Linky s variantami tras pro navigaci (navigace.php) → odkaz v detailu linky: číslo → slug.
+$navLines = [];
+foreach (((json_decode((string)@file_get_contents(__DIR__ . '/mapa-assets/data/navigace.json'), true) ?: [])['lines'] ?? []) as $__sn => $__L) {
+    $navLines[(string)$__sn] = (string)($__L['slug'] ?? $__sn);
+}
 
 // ── Historický snapshot sítě ────────────────────────────────────────────
 // /mapa/<rok> → ?rok=YYYY (rewrite). Existuje-li mapa-assets/data/<rok>/, jede
@@ -295,6 +302,7 @@ $legend = array_values(array_filter($legend, static function ($it) use (&$seenLe
       <span class="nadpis-switch">
         <a href="<?= $esc($navHref('')) ?>"><?= $esc($lang['prehled_nav'] ?? $lang['prehled']) ?></a>
         <a<?= $isSnapshot ? '' : ' class="current"' ?> href="<?= $esc($navHref('mapa')) ?>"><?= $esc($lang['mapa_nav'] ?? 'Interaktivní mapa') ?></a>
+        <a href="<?= $esc($navHref('navigace')) ?>"><?= $esc($lang['nav_nav'] ?? 'Navigace') ?></a>
         <?php if ($snapRoky): ?>
         <details class="nadpis-drop<?= $isSnapshot ? ' is-current' : '' ?>">
           <summary><?= $esc($isSnapshot ? $snapRok : ($lang['mapa_snap_nav'] ?? 'Historie')) ?></summary>
@@ -425,6 +433,7 @@ $legend = array_values(array_filter($legend, static function ($it) use (&$seenLe
     tileStates: <?= json_encode($tileStates, JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT) ?>,
     legacyStops: <?= json_encode((object)$legacyStops, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>,
     aliases: <?= json_encode($lineAliases, JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT) ?>,
+    navLines: <?= json_encode($isSnapshot ? [] : $navLines, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT) ?>,
     lang: <?= json_encode($jsLang, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
   };
 </script>
