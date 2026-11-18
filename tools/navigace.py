@@ -12,6 +12,11 @@ Výstup:
   mapa-assets/navigace/linka-<linka>.gpx všechny varianty linky v jednom souboru
   mapa-assets/data/navigace.json          index variant (pro navigace.php a mapu)
   mapa-assets/data/navigace-zmeny.json    záznam změn variant (nová/změněná/zrušená)
+Čte (ručně udržovaný, nepovinný):
+  mapa-assets/data/navigace-body.json     ruční opravy odkazů do Mapy.com tam, kde plánovač uhýbá:
+                                          {"mezi": ["Viadukt", "Nádraží"], "pozn": "…"} = bod v půlce
+                                          trasy mezi dvěma po sobě jdoucími zastávkami (oba směry),
+                                          {"lat": …, "lon": …, "pozn": "…"} = bod, kterým trasa vede (do 30 m)
 
 Stálá adresa: id varianty se odvodí z linky, první a poslední zastávky (případně
 „přes“ / „bez“ rozlišující zastávky) a při dalším běhu se pro stejný sled zastávek
@@ -23,6 +28,9 @@ from xml.sax.saxutils import escape, quoteattr
 
 SITE_URL = "https://tomaskrupicka.cz/liberecke-linky"
 NAV_SIMPLIFY_TOL = 0.00001      # ~1 m – navigace chce trasu co nejpřesnější
+NAV_LONG = 800.0                # m – delší úsek bez bodu se dělí, i když je rovný
+NAV_LONG_W = 0.06               # váha délky úseku proti odchylce (1 km rovně ~ 40 m odbočky)
+NAV_CURVE = 25.0                # m – menší odchylka od spojnice je jen šum geometrie
 MAPY_WAYPOINTS = 15             # limit průjezdních bodů v odkazu Mapy.com (mapy.com/fnc/v1/route)
 LIST_TIMES_MAX = 8              # do kolika spojů za typ dne vypsat všechny časy
 REMOVED_KEEP_DAYS = 400         # jak dlouho držet zrušené varianty (hláška místo 404)
@@ -77,48 +85,144 @@ def prague_today():
 
 
 # ---------------------------------------------------------------- GPX
-def key_points(pts, n):
-    """Douglas-Peucker podle důležitosti: k začátku a konci postupně přidává bod
-    nejvzdálenější od dosavadní lomené čáry, dokud nemá n vnitřních bodů. Body tak
-    padnou do míst, kde se trasa nejvíc láme (odbočky, smyčky), a plánovač je
-    mezi nimi vede po linii linky. Vrací indexy do pts."""
-    def perp(p, a, b):
-        c = math.cos(math.radians(a[1]))
-        bx, by = (b[0] - a[0]) * c, b[1] - a[1]
-        px, py = (p[0] - a[0]) * c, p[1] - a[1]
-        L = bx * bx + by * by
-        t = 0.0 if L == 0 else max(0.0, min(1.0, (px * bx + py * by) / L))
-        return math.hypot(px - t * bx, py - t * by)
-    keep = [0, len(pts) - 1]
-    # pro každý úsek si pamatuj nejvzdálenější bod (d, idx, s, e)
-    def worst(s, e):
-        best = (0.0, None)
+def _xy(pts):
+    """lon/lat -> lokální metry (stačí pro vzdálenosti v rámci města)."""
+    lat0 = sum(p[1] for p in pts) / len(pts)
+    c = math.cos(math.radians(lat0)) * 111320.0
+    return [(p[0] * c, p[1] * 111320.0) for p in pts]
+
+
+def _perp_m(p, a, b):
+    bx, by = b[0] - a[0], b[1] - a[1]
+    px, py = p[0] - a[0], p[1] - a[1]
+    L = bx * bx + by * by
+    t = 0.0 if L == 0 else max(0.0, min(1.0, (px * bx + py * by) / L))
+    return math.hypot(px - t * bx, py - t * by)
+
+
+def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), between=()):
+    """Vybere nejvýš n průjezdních bodů pro plánovač Mapy.com tak, aby jeho trasa
+    autem kopírovala trasu linky. pts = trasa [(lon,lat)], stops = zastávky v pořadí
+    [(lon,lat)], pins = ručně zadané body, které se vynutí, když jimi trasa vede,
+    between = dvojice názvů zastávek; jedou-li varianta jimi po sobě (v libovolném
+    pořadí), vynutí se bod v půlce trasy mezi nimi (stop_names = názvy ke stops).
+
+    Úsek mezi dvěma body se dělí tam, kde od spojnice nejvíc uhýbá (zlomy trasy).
+    Dlouhé rovné úseky se dělí taky (jinak plánovač volí rychlejší souběžnou
+    silnici, typicky rychlostní) – a to v zastávce nejblíž středu úseku, protože
+    zastávka leží na ulici, kudy autobus opravdu jede. Bod ve zlomu se posune
+    o kus dál po trase, aby neležel přímo na křižovatce (u mimoúrovňového křížení
+    by plánovač nevěděl, na kterou silnici patří). Vrací [(lon, lat)] včetně
+    začátku a konce."""
+    if len(pts) < 2:
+        return list(pts)
+    xy = _xy(list(pts) + list(stops) + list(pins))
+    P, S, PIN = xy[:len(pts)], xy[len(pts):len(pts) + len(stops)], xy[len(pts) + len(stops):]
+    cum = [0.0]
+    for i in range(1, len(P)):
+        cum.append(cum[-1] + math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]))
+
+    def nearest(q, lo):
+        best, bi = 1e18, None
+        for i in range(lo, len(P)):
+            d = (P[i][0] - q[0]) ** 2 + (P[i][1] - q[1]) ** 2
+            if d < best:
+                best, bi = d, i
+        return bi, math.sqrt(best)
+
+    # zastávky promítnuté na trasu (postupně dopředu, ať okruhy a průjezdy tamtéž sedí)
+    anchors, anchor_of, lo = [], [], 0
+    for q in S:
+        i, d = nearest(q, lo)
+        if i is not None and d < 60:
+            anchors.append(i)
+            lo = i
+            anchor_of.append(i)
+        else:
+            anchor_of.append(None)
+    # ručně vynucené body (jen když jimi trasa vede)
+    forced = set()
+    for q in PIN:
+        i, d = nearest(q, 0)
+        if i is not None and d < 30:
+            forced.add(i)
+    pairs = {frozenset((a.strip().lower(), b.strip().lower())) for a, b in between}
+    names = [str(x).strip().lower() for x in stop_names]
+    for k in range(len(names) - 1):
+        if k + 1 < len(anchor_of) and frozenset((names[k], names[k + 1])) in pairs:
+            a, b = anchor_of[k], anchor_of[k + 1]
+            if a is not None and b is not None and b - a > 1:
+                mid = (cum[a] + cum[b]) / 2
+                forced.add(min(range(a + 1, b), key=lambda i: abs(cum[i] - mid)))
+    keep = sorted({0, len(P) - 1} | set(list(forced)[:max(0, n)]))
+
+    LONG, LONG_W, CURVE = NAV_LONG, NAV_LONG_W, NAV_CURVE
+
+    def split(s, e):
+        """(skóre, index, je_zlom)"""
+        dm, im = 0.0, None
         for i in range(s + 1, e):
-            d = perp(pts[i], pts[s], pts[e])
-            if d > best[0]:
-                best = (d, i)
-        return best
-    segs = {(0, len(pts) - 1): worst(0, len(pts) - 1)}
-    while len(keep) - 2 < n:
-        (s, e), (d, i) = max(segs.items(), key=lambda kv: kv[1][0])
-        if i is None or d <= 0:
+            d = _perp_m(P[i], P[s], P[e])
+            if d > dm:
+                dm, im = d, i
+        length = cum[e] - cum[s]
+        if im is not None and dm >= CURVE and dm >= length * LONG_W:
+            return dm, im, True
+        if length > LONG and e - s > 1:
+            mid = (cum[s] + cum[e]) / 2
+            inner = [a for a in anchors if s < a < e and 150 < cum[a] - cum[s] and 150 < cum[e] - cum[a]]
+            if inner:
+                ia = min(inner, key=lambda a: abs(cum[a] - mid))
+            else:
+                ia = min(range(s + 1, e), key=lambda i: abs(cum[i] - mid))
+            return length * LONG_W, ia, False
+        return 0.0, None, False
+
+    turns = set()
+    segs = {}
+    for s, e in zip(keep, keep[1:]):
+        segs[(s, e)] = split(s, e)
+    while len(keep) - 2 < n and segs:
+        (s, e), (score, i, is_turn) = max(segs.items(), key=lambda kv: kv[1][0])
+        if i is None or score <= 0:
             break
         del segs[(s, e)]
         keep.append(i)
-        segs[(s, i)] = worst(s, i)
-        segs[(i, e)] = worst(i, e)
-    return sorted(set(keep))
+        if is_turn:
+            turns.add(i)
+        segs[(s, i)] = split(s, i)
+        segs[(i, e)] = split(i, e)
+    keep = sorted(set(keep))
+
+    # body ve zlomu posunout o ~60 m dál po trase (pryč z křižovatky), nejvýš do
+    # třetiny vzdálenosti k dalšímu bodu
+    out = []
+    for k, i in enumerate(keep):
+        if i in turns and 0 < k < len(keep) - 1:
+            limit = cum[i] + min(60.0, (cum[keep[k + 1]] - cum[i]) / 3)
+            j = i
+            while j + 1 < keep[k + 1] and cum[j + 1] <= limit:
+                j += 1
+            if cum[j] < limit and j + 1 < len(P):      # dopočítat bod na úsečce
+                f = (limit - cum[j]) / max(1e-9, cum[j + 1] - cum[j])
+                f = max(0.0, min(1.0, f))
+                out.append((pts[j][0] + (pts[j + 1][0] - pts[j][0]) * f,
+                            pts[j][1] + (pts[j + 1][1] - pts[j][1]) * f))
+                continue
+            out.append(pts[j])
+        else:
+            out.append(pts[i])
+    return out
 
 
-def mapy_url(pts):
+def mapy_url(pts, stops=(), pins=(), stop_names=(), between=()):
     """Odkaz, který v aplikaci (nebo na webu) Mapy.com otevře plánování trasy autem
-    přes klíčové body trasy varianty. pts = [(lon, lat)]."""
-    idx = key_points(pts, MAPY_WAYPOINTS)
+    přes průjezdní body vybrané nav_waypoints(). pts/stops = [(lon, lat)]."""
+    wp = nav_waypoints(pts, stops, pins, stop_names=stop_names, between=between)
     f = lambda p: "%.6f,%.6f" % (p[0], p[1])
-    url = "https://mapy.com/fnc/v1/route?start=%s&end=%s&routeType=car_fast_traffic" % (
-        f(pts[idx[0]]), f(pts[idx[-1]]))
-    if len(idx) > 2:
-        url += "&waypoints=" + ";".join(f(pts[i]) for i in idx[1:-1])
+    url = "https://mapy.com/fnc/v1/route?start=%s&end=%s&routeType=car_fast_traffic" % (f(wp[0]), f(wp[-1]))
+    if len(wp) > 2:
+        url += "&waypoints=" + ";".join(f(p) for p in wp[1:-1])
     return url + "&navigate=true"
 
 
@@ -194,6 +298,16 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
         changes = json.load(open(chg_path, encoding="utf-8"))
     except (OSError, ValueError):
         changes = []
+    # ručně vynucené průjezdní body pro Mapy.com (oprava míst, kde plánovač uhýbá)
+    pins, between = [], []
+    try:
+        for b in json.load(open(os.path.join(out_data, "navigace-body.json"), encoding="utf-8")):
+            if isinstance(b, dict) and isinstance(b.get("mezi"), list) and len(b["mezi"]) == 2:
+                between.append((str(b["mezi"][0]), str(b["mezi"][1])))
+            elif isinstance(b, dict) and "lat" in b and "lon" in b:
+                pins.append((float(b["lon"]), float(b["lat"])))
+    except (OSError, ValueError, TypeError):
+        pass
     prev_vars = {}          # id -> záznam
     prev_by_seq = {}        # (linka, sled id zastávek) -> id
     if prev:
@@ -316,7 +430,8 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
                 "via": stop_name(via) if via else "", "without": stop_name(bez) if bez else "",
                 "stops": [{"id": x, "name": stop_name(x)} for x in s],
                 "km": round(length, 1), "trips": len(tlist), "short_trips": short_of.get(s, 0),
-                "jizdy": jizdy, "geom": geom_hash, "mapy": mapy_url(pts),
+                "jizdy": jizdy, "geom": geom_hash, "mapy": mapy_url(pts, [stop_ll(x) for x in s if stop_ll(x)], pins,
+                                 [stop_name(x) for x in s if stop_ll(x)], between),
             }
             if approx:
                 rec["approximate"] = True
