@@ -27,6 +27,9 @@ LIST_TIMES_MAX = 8              # do kolika spojů za typ dne vypsat všechny č
 REMOVED_KEEP_DAYS = 400         # jak dlouho držet zrušené varianty (hláška místo 404)
 CHANGES_KEEP = 300              # kolik posledních záznamů změn držet
 BUS_ROUTE_TYPES = {"3", "11", "700", "704", "715"}   # bus/trolejbus (tramvaje navigaci nepotřebují)
+# Linky bez pevné trasy – poptávková doprava (např. „Poptávková doprava oblast Puškinova“)
+# jezdí podle objednávek, varianta trasy pro navigaci nedává smysl.
+EXCLUDE_LINE_RE = re.compile(r"popt[aá]vk", re.IGNORECASE)
 
 
 # ---------------------------------------------------------------- pomocné
@@ -120,6 +123,8 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
     for t in trips:
         r = route_by_id.get(t["route_id"])
         if not r or r.get("route_type") not in BUS_ROUTE_TYPES:
+            continue
+        if EXCLUDE_LINE_RE.search(r.get("route_short_name", "") + " " + r.get("route_long_name", "")):
             continue
         seq = []
         for _, sid, dep in seq_by_trip.get(t["trip_id"], []):
