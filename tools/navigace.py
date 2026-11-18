@@ -12,6 +12,13 @@ Výstup:
   mapa-assets/navigace/linka-<linka>.gpx všechny varianty linky v jednom souboru
   mapa-assets/data/navigace.json          index variant (pro navigace.php a mapu)
   mapa-assets/data/navigace-zmeny.json    záznam změn variant (nová/změněná/zrušená)
+Čte (ručně udržovaný, nepovinný):
+  mapa-assets/data/navigace-body.json     ruční opravy odkazů do Mapy.com tam, kde plánovač uhýbá:
+                                          {"zastavka": "Nádraží", "pozn": "…"} = povinná zastávka,
+                                          z odkazu se nevyřadí (u všech linek, které jí jedou),
+                                          {"mezi": ["Viadukt", "Nádraží"], "pozn": "…"} = bod v půlce
+                                          trasy mezi dvěma po sobě jdoucími zastávkami (oba směry),
+                                          {"lat": …, "lon": …, "pozn": "…"} = bod, kterým trasa vede (do 30 m)
 
 Stálá adresa: id varianty se odvodí z linky, první a poslední zastávky (případně
 „přes“ / „bez“ rozlišující zastávky) a při dalším běhu se pro stejný sled zastávek
@@ -23,6 +30,8 @@ from xml.sax.saxutils import escape, quoteattr
 
 SITE_URL = "https://tomaskrupicka.cz/liberecke-linky"
 NAV_SIMPLIFY_TOL = 0.00001      # ~1 m – navigace chce trasu co nejpřesnější
+NAV_FILL_MIN = 30.0             # m – úsek s menším rizikem už body z trasy nedoplňuje
+NAV_LONG_W = 0.06               # váha délky úseku bez bodu proti odchylce trasy (1 km ~ 60 m)
 MAPY_WAYPOINTS = 15             # limit průjezdních bodů v odkazu Mapy.com (mapy.com/fnc/v1/route)
 LIST_TIMES_MAX = 8              # do kolika spojů za typ dne vypsat všechny časy
 REMOVED_KEEP_DAYS = 400         # jak dlouho držet zrušené varianty (hláška místo 404)
@@ -77,48 +86,162 @@ def prague_today():
 
 
 # ---------------------------------------------------------------- GPX
-def key_points(pts, n):
-    """Douglas-Peucker podle důležitosti: k začátku a konci postupně přidává bod
-    nejvzdálenější od dosavadní lomené čáry, dokud nemá n vnitřních bodů. Body tak
-    padnou do míst, kde se trasa nejvíc láme (odbočky, smyčky), a plánovač je
-    mezi nimi vede po linii linky. Vrací indexy do pts."""
-    def perp(p, a, b):
-        c = math.cos(math.radians(a[1]))
-        bx, by = (b[0] - a[0]) * c, b[1] - a[1]
-        px, py = (p[0] - a[0]) * c, p[1] - a[1]
-        L = bx * bx + by * by
-        t = 0.0 if L == 0 else max(0.0, min(1.0, (px * bx + py * by) / L))
-        return math.hypot(px - t * bx, py - t * by)
-    keep = [0, len(pts) - 1]
-    # pro každý úsek si pamatuj nejvzdálenější bod (d, idx, s, e)
-    def worst(s, e):
-        best = (0.0, None)
-        for i in range(s + 1, e):
-            d = perp(pts[i], pts[s], pts[e])
-            if d > best[0]:
-                best = (d, i)
-        return best
-    segs = {(0, len(pts) - 1): worst(0, len(pts) - 1)}
+def _xy(pts):
+    """lon/lat -> lokální metry (stačí pro vzdálenosti v rámci města)."""
+    lat0 = sum(p[1] for p in pts) / len(pts)
+    c = math.cos(math.radians(lat0)) * 111320.0
+    return [(p[0] * c, p[1] * 111320.0) for p in pts]
+
+
+def _perp_m(p, a, b):
+    bx, by = b[0] - a[0], b[1] - a[1]
+    px, py = p[0] - a[0], p[1] - a[1]
+    L = bx * bx + by * by
+    t = 0.0 if L == 0 else max(0.0, min(1.0, (px * bx + py * by) / L))
+    return math.hypot(px - t * bx, py - t * by)
+
+
+def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), between=(), required=()):
+    """Vybere nejvýš n průjezdních bodů pro plánovač Mapy.com tak, aby jeho trasa
+    autem kopírovala trasu linky. pts = trasa [(lon,lat)], stops = zastávky v pořadí
+    [(lon,lat)], stop_names = jejich názvy, required = názvy povinných zastávek
+    (nevyřazují se), pins = ručně zadané body (vynutí se,
+    když jimi trasa vede), between = dvojice názvů zastávek (jede-li jimi varianta
+    po sobě, v libovolném pořadí, vynutí se bod v půlce trasy mezi nimi).
+
+    Body jsou zastávky – ne jejich souřadnice (leží mimo vozovku, plánovač pak
+    dělal zajížďky), ale místo, kde kolem nich projíždí trasa linky, tj. ulice,
+    kudy autobus opravdu jede. Má-li varianta víc zastávek než n, postupně se
+    vyřazují ty, bez kterých je trasa mezi sousedními body nejméně delší než
+    přímá vzdálenost (zajížďky do sídlišť a smyčky zůstanou) a úsek se nejméně
+    prodlouží (dlouhý úsek bez bodu láká plánovač na souběžnou rychlostní silnici). Vrací [(lon, lat)] včetně začátku a konce."""
+    if len(pts) < 2:
+        return list(pts)
+    xy = _xy(list(pts) + list(stops) + list(pins))
+    P, S, PIN = xy[:len(pts)], xy[len(pts):len(pts) + len(stops)], xy[len(pts) + len(stops):]
+    cum = [0.0]
+    for i in range(1, len(P)):
+        cum.append(cum[-1] + math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]))
+    last = len(P) - 1
+
+    def nearest(q, lo):
+        best, bi = 1e18, None
+        for i in range(lo, len(P)):
+            d = (P[i][0] - q[0]) ** 2 + (P[i][1] - q[1]) ** 2
+            if d < best:
+                best, bi = d, i
+        return bi, math.sqrt(best)
+
+    # zastávky promítnuté na trasu: každé zastávce průjezd trasy kolem ní tak, aby
+    # pořadí odpovídalo pořadí zastávek (DP přes lokální minima vzdálenosti) – u linek
+    # tam a zpět po stejné ulici nebo se smyčkou tak zastávka nepadne na jiný průjezd
+    R, SKIP = 120.0, 150.0
+    passes = []
+    for q in S:
+        d = [math.hypot(p[0] - q[0], p[1] - q[1]) for p in P]
+        loc = [i for i in range(len(P)) if d[i] < R
+               and (i == 0 or d[i] <= d[i - 1]) and (i == len(P) - 1 or d[i] <= d[i + 1])]
+        passes.append([(i, d[i]) for i in loc])
+    # stav = index trasy poslední přiřazené zastávky; table[k][stav] = (náklad, předchozí stav, přiřazeno)
+    states = {-1: 0.0}
+    table = []
+    for cands in passes:
+        row = {}
+        for prev, c in states.items():                 # zastávku vynechat
+            if prev not in row or c + SKIP < row[prev][0]:
+                row[prev] = (c + SKIP, prev, False)
+        for i, di in cands:                            # zastávku přiřadit průjezdu i
+            prevs = [(c, prev) for prev, c in states.items() if prev <= i]
+            if prevs:
+                c, prev = min(prevs)
+                if i not in row or c + di < row[i][0]:
+                    row[i] = (c + di, prev, True)
+        table.append(row)
+        states = {k: v[0] for k, v in row.items()}
+    anchor_of = [None] * len(passes)
+    cur = min(states, key=states.get)
+    for k in range(len(passes) - 1, -1, -1):
+        _, prev, assigned = table[k][cur]
+        if assigned:
+            anchor_of[k] = cur
+        cur = prev
+
+    cand = {i for i in anchor_of if i is not None and 50 < cum[i] < cum[last] - 50}
+
+    # ručně vynucené body
+    forced = set()
+    for q in PIN:
+        i, d = nearest(q, 0)
+        if i is not None and d < 30 and 0 < i < last:
+            forced.add(i)
+    pairs = {frozenset((x.strip().lower(), y.strip().lower())) for x, y in between}
+    names = [str(x).strip().lower() for x in stop_names]
+    must = {str(x).strip().lower() for x in required}
+    for k, nm in enumerate(names[:len(anchor_of)]):          # povinné zastávky
+        if nm in must and anchor_of[k] is not None and 0 < anchor_of[k] < last:
+            forced.add(anchor_of[k])
+    for k in range(min(len(names), len(anchor_of)) - 1):
+        if frozenset((names[k], names[k + 1])) in pairs:
+            x, y = anchor_of[k], anchor_of[k + 1]
+            if x is not None and y is not None and y - x > 1:
+                mid = (cum[x] + cum[y]) / 2
+                forced.add(min(range(x + 1, y), key=lambda i: abs(cum[i] - mid)))
+
+    keep = sorted({0, last} | cand | forced)
+
+    def cost(a, b):
+        """Riziko úseku a–b bez dalšího bodu v metrech: o kolik je trasa linky delší
+        než přímá vzdálenost (zajížďka do sídliště, smyčka, odbočka – plánovač ji
+        mezi a a b neprojede) a délka úseku převedená vahou NAV_LONG_W (dlouhý
+        úsek láká na souběžnou rychlejší silnici)."""
+        length = cum[b] - cum[a]
+        excess = length - math.hypot(P[b][0] - P[a][0], P[b][1] - P[a][1])
+        return max(excess, length * NAV_LONG_W)
+
+    while len(keep) - 2 > n:
+        best, bk = None, None
+        for only_forced in (False, True):    # vynucené body až když nic jiného nezbývá
+            for k in range(1, len(keep) - 1):
+                if (keep[k] in forced) != only_forced:
+                    continue
+                c = cost(keep[k - 1], keep[k + 1])
+                if best is None or c < best:
+                    best, bk = c, k
+            if bk is not None:
+                break
+        del keep[bk]
+
+    # málo zastávek (expresní spoje, dlouhé úseky bez zastávky): zbylé body doplnit
+    # z trasy – do nejrizikovějšího úseku, kde trasa nejvíc uhýbá, nebo do půlky
+    def split(a, b):
+        dm, im = 0.0, None
+        for i in range(a + 1, b):
+            d = _perp_m(P[i], P[a], P[b])
+            if d > dm:
+                dm, im = d, i
+        if im is not None and dm >= (cum[b] - cum[a]) * NAV_LONG_W:
+            return dm, im
+        if b - a > 1:
+            mid = (cum[a] + cum[b]) / 2
+            return (cum[b] - cum[a]) * NAV_LONG_W, min(range(a + 1, b), key=lambda i: abs(cum[i] - mid))
+        return 0.0, None
     while len(keep) - 2 < n:
-        (s, e), (d, i) = max(segs.items(), key=lambda kv: kv[1][0])
-        if i is None or d <= 0:
+        segs = [(split(a, b), a, b) for a, b in zip(keep, keep[1:])]
+        (c, i), a, b = max(segs, key=lambda t: t[0][0])
+        if i is None or c < NAV_FILL_MIN:
             break
-        del segs[(s, e)]
-        keep.append(i)
-        segs[(s, i)] = worst(s, i)
-        segs[(i, e)] = worst(i, e)
-    return sorted(set(keep))
+        keep = sorted(keep + [i])
+    return [pts[i] for i in keep]
 
 
-def mapy_url(pts):
+def mapy_url(pts, stops=(), pins=(), stop_names=(), between=(), required=()):
     """Odkaz, který v aplikaci (nebo na webu) Mapy.com otevře plánování trasy autem
-    přes klíčové body trasy varianty. pts = [(lon, lat)]."""
-    idx = key_points(pts, MAPY_WAYPOINTS)
+    přes průjezdní body vybrané nav_waypoints(). pts/stops = [(lon, lat)]."""
+    wp = nav_waypoints(pts, stops, pins, stop_names=stop_names, between=between, required=required)
     f = lambda p: "%.6f,%.6f" % (p[0], p[1])
-    url = "https://mapy.com/fnc/v1/route?start=%s&end=%s&routeType=car_fast_traffic" % (
-        f(pts[idx[0]]), f(pts[idx[-1]]))
-    if len(idx) > 2:
-        url += "&waypoints=" + ";".join(f(pts[i]) for i in idx[1:-1])
+    url = "https://mapy.com/fnc/v1/route?start=%s&end=%s&routeType=car_fast_traffic" % (f(wp[0]), f(wp[-1]))
+    if len(wp) > 2:
+        url += "&waypoints=" + ";".join(f(p) for p in wp[1:-1])
     return url + "&navigate=true"
 
 
@@ -194,6 +317,18 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
         changes = json.load(open(chg_path, encoding="utf-8"))
     except (OSError, ValueError):
         changes = []
+    # ručně vynucené průjezdní body pro Mapy.com (oprava míst, kde plánovač uhýbá)
+    pins, between, required = [], [], []
+    try:
+        for b in json.load(open(os.path.join(out_data, "navigace-body.json"), encoding="utf-8")):
+            if isinstance(b, dict) and isinstance(b.get("mezi"), list) and len(b["mezi"]) == 2:
+                between.append((str(b["mezi"][0]), str(b["mezi"][1])))
+            elif isinstance(b, dict) and b.get("zastavka"):
+                required.append(str(b["zastavka"]))
+            elif isinstance(b, dict) and "lat" in b and "lon" in b:
+                pins.append((float(b["lon"]), float(b["lat"])))
+    except (OSError, ValueError, TypeError):
+        pass
     prev_vars = {}          # id -> záznam
     prev_by_seq = {}        # (linka, sled id zastávek) -> id
     if prev:
@@ -316,7 +451,8 @@ def build_navigation(out_data, out_gpx, routes, trips, seq_by_trip, station_of, 
                 "via": stop_name(via) if via else "", "without": stop_name(bez) if bez else "",
                 "stops": [{"id": x, "name": stop_name(x)} for x in s],
                 "km": round(length, 1), "trips": len(tlist), "short_trips": short_of.get(s, 0),
-                "jizdy": jizdy, "geom": geom_hash, "mapy": mapy_url(pts),
+                "jizdy": jizdy, "geom": geom_hash, "mapy": mapy_url(pts, [stop_ll(x) for x in s if stop_ll(x)], pins,
+                                 [stop_name(x) for x in s if stop_ll(x)], between, required),
             }
             if approx:
                 rec["approximate"] = True
