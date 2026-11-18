@@ -109,9 +109,9 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
     Body jsou zastávky – ne jejich souřadnice (leží mimo vozovku, plánovač pak
     dělal zajížďky), ale místo, kde kolem nich projíždí trasa linky, tj. ulice,
     kudy autobus opravdu jede. Má-li varianta víc zastávek než n, postupně se
-    vyřazují ty, bez kterých se trasa mezi sousedními body nejméně odchýlí od
-    přímky a úsek se nejméně prodlouží (dlouhý úsek bez bodu láká plánovač na
-    souběžnou rychlostní silnici). Vrací [(lon, lat)] včetně začátku a konce."""
+    vyřazují ty, bez kterých je trasa mezi sousedními body nejméně delší než
+    přímá vzdálenost (zajížďky do sídlišť a smyčky zůstanou) a úsek se nejméně
+    prodlouží (dlouhý úsek bez bodu láká plánovač na souběžnou rychlostní silnici). Vrací [(lon, lat)] včetně začátku a konce."""
     if len(pts) < 2:
         return list(pts)
     xy = _xy(list(pts) + list(stops) + list(pins))
@@ -183,14 +183,13 @@ def nav_waypoints(pts, stops=(), pins=(), n=MAPY_WAYPOINTS, stop_names=(), betwe
     keep = sorted({0, last} | cand | forced)
 
     def cost(a, b):
-        """Riziko úseku a–b bez dalšího bodu: odchylka trasy od přímky (m)
-        a délka úseku převedená vahou NAV_LONG_W na metry odchylky."""
-        dm = 0.0
-        for i in range(a + 1, b):
-            d = _perp_m(P[i], P[a], P[b])
-            if d > dm:
-                dm = d
-        return max(dm, (cum[b] - cum[a]) * NAV_LONG_W)
+        """Riziko úseku a–b bez dalšího bodu v metrech: o kolik je trasa linky delší
+        než přímá vzdálenost (zajížďka do sídliště, smyčka, odbočka – plánovač ji
+        mezi a a b neprojede) a délka úseku převedená vahou NAV_LONG_W (dlouhý
+        úsek láká na souběžnou rychlejší silnici)."""
+        length = cum[b] - cum[a]
+        excess = length - math.hypot(P[b][0] - P[a][0], P[b][1] - P[a][1])
+        return max(excess, length * NAV_LONG_W)
 
     while len(keep) - 2 > n:
         best, bk = None, None
