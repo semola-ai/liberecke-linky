@@ -1,4 +1,6 @@
 [
   {"zastavka": "Nádraží", "pozn": "bez ní Mapy.com volí souběžnou rychlostní silnici (Žitavská); ověřeno na lince 22, 2026-11-18"},
-  {"zastavka": "Kunratická sídliště", "pozn": "zajížďka mimo hlavní silnici; ověřeno na lince 22, 2026-11-18"}
+  {"zastavka": "Kunratická sídliště", "pozn": "zajížďka mimo hlavní silnici; ověřeno na lince 22, 2026-11-18"},
+  {"zastavka": "Žitavská", "pozn": "bez ní Mapy.com u Růžodolu kličkují přes křižovatku Londýnská / E442; ověřeno na lince 34, 2026-11-19"},
+  {"mezi": ["U Beránka", "Ruprechtice nám."], "pozn": "autobus jede přímo Ruprechtickou, Mapy.com objížděly přes Hlávkovu a Vrchlického; linka 34, 2026-11-19"}
 ]
